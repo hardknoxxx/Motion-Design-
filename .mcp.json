@@ -12,6 +12,15 @@
         "/opt/pw-browsers/chromium"
       ],
       "env": {}
+    },
+    "aftereffects": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@kumoproductions/mcp-aftereffects"
+      ],
+      "env": {}
     }
   }
 }
