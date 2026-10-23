@@ -1,0 +1,233 @@
+<!doctype html>
+<html
+  lang="es"
+  data-composition-variables='[
+    {"id":"color-ground","type":"color","label":"Fondo","default":"#0A0A0C"},
+    {"id":"color-ink","type":"color","label":"Texto","default":"#F5F5F7"},
+    {"id":"color-blue","type":"color","label":"Azul de datos","default":"#3D8BFF"},
+    {"id":"color-hot","type":"color","label":"Naranja (exceso)","default":"#FF8A3D"},
+    {"id":"color-danger","type":"color","label":"Rojo (bloqueo)","default":"#FF3B30"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #0a0a0c;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="16.5"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- Escenario: negro con un foco de luz, viñeta y grano. Una idea por escena; cada corte cae en un beat (≈139 BPM). -->
+      <div
+        id="fondo"
+        data-composition-id="fondo"
+        data-composition-src="compositions/fondo.html"
+        data-start="0"
+        data-duration="16.5"
+        data-track-index="0"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 0"
+      ></div>
+      <div
+        id="panel"
+        data-composition-id="panel"
+        data-composition-src="compositions/panel.html"
+        data-start="0"
+        data-duration="4.74"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 1"
+      ></div>
+      <div
+        id="bienestar"
+        data-composition-id="bienestar"
+        data-composition-src="compositions/bienestar.html"
+        data-start="4.74"
+        data-duration="3.98"
+        data-track-index="2"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 2"
+      ></div>
+      <div
+        id="bloqueo"
+        data-composition-id="bloqueo"
+        data-composition-src="compositions/bloqueo.html"
+        data-start="8.62"
+        data-duration="2.59"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 3"
+      ></div>
+      <div
+        id="cierre"
+        data-composition-id="cierre"
+        data-composition-src="compositions/cierre.html"
+        data-start="11.21"
+        data-duration="5.29"
+        data-track-index="2"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 4"
+      ></div>
+
+      <!-- Sonido: la música marca el pulso; cada efecto tiene su causa en pantalla y su pico cae un frame después de la imagen -->
+      <!-- Música: "Trap Electro Vibes" (Mixkit). El bajo entra a los 3,0 s; los cortes caen en sus beats -->
+      <audio id="sfx-musica" src="assets/musica.mp3" data-start="0" data-duration="16.500" data-volume="0.62" data-fade-out="0.9" data-track-index="10"></audio>
+      <!-- Contador de horas: un tick cada vez que cambia, con la curva del contador -->
+      <audio id="sfx-horas-1" src="assets/sfx/reloj-tock.wav" data-start="0.251" data-duration="0.075" data-volume="0.29" data-track-index="11"></audio>
+      <audio id="sfx-horas-2" src="assets/sfx/reloj-tick.wav" data-start="0.303" data-duration="0.040" data-volume="0.29" data-track-index="12"></audio>
+      <audio id="sfx-horas-3" src="assets/sfx/reloj-tock.wav" data-start="0.356" data-duration="0.075" data-volume="0.28" data-track-index="13"></audio>
+      <audio id="sfx-horas-4" src="assets/sfx/reloj-tick.wav" data-start="0.41" data-duration="0.040" data-volume="0.28" data-track-index="14"></audio>
+      <audio id="sfx-horas-5" src="assets/sfx/reloj-tock.wav" data-start="0.466" data-duration="0.075" data-volume="0.27" data-track-index="15"></audio>
+      <audio id="sfx-horas-6" src="assets/sfx/reloj-tick.wav" data-start="0.524" data-duration="0.040" data-volume="0.27" data-track-index="16"></audio>
+      <audio id="sfx-horas-7" src="assets/sfx/reloj-tock.wav" data-start="0.584" data-duration="0.075" data-volume="0.26" data-track-index="17"></audio>
+      <audio id="sfx-horas-8" src="assets/sfx/reloj-tick.wav" data-start="0.646" data-duration="0.040" data-volume="0.26" data-track-index="18"></audio>
+      <audio id="sfx-horas-9" src="assets/sfx/reloj-tock.wav" data-start="0.709" data-duration="0.075" data-volume="0.25" data-track-index="19"></audio>
+      <audio id="sfx-horas-10" src="assets/sfx/reloj-tick.wav" data-start="0.775" data-duration="0.040" data-volume="0.24" data-track-index="20"></audio>
+      <audio id="sfx-horas-11" src="assets/sfx/reloj-tock.wav" data-start="0.845" data-duration="0.075" data-volume="0.24" data-track-index="21"></audio>
+      <audio id="sfx-horas-12" src="assets/sfx/reloj-tick.wav" data-start="0.917" data-duration="0.040" data-volume="0.23" data-track-index="22"></audio>
+      <audio id="sfx-horas-13" src="assets/sfx/reloj-tock.wav" data-start="0.993" data-duration="0.075" data-volume="0.23" data-track-index="23"></audio>
+      <audio id="sfx-horas-14" src="assets/sfx/reloj-tick.wav" data-start="1.073" data-duration="0.040" data-volume="0.22" data-track-index="24"></audio>
+      <audio id="sfx-horas-15" src="assets/sfx/reloj-tock.wav" data-start="1.159" data-duration="0.075" data-volume="0.22" data-track-index="25"></audio>
+      <audio id="sfx-horas-16" src="assets/sfx/reloj-tick.wav" data-start="1.252" data-duration="0.040" data-volume="0.21" data-track-index="26"></audio>
+      <audio id="sfx-horas-17" src="assets/sfx/reloj-tock.wav" data-start="1.352" data-duration="0.075" data-volume="0.21" data-track-index="27"></audio>
+      <audio id="sfx-horas-18" src="assets/sfx/reloj-tick.wav" data-start="1.462" data-duration="0.040" data-volume="0.20" data-track-index="28"></audio>
+      <audio id="sfx-horas-19" src="assets/sfx/reloj-tock.wav" data-start="1.588" data-duration="0.075" data-volume="0.20" data-track-index="29"></audio>
+      <audio id="sfx-horas-20" src="assets/sfx/reloj-tick.wav" data-start="1.737" data-duration="0.040" data-volume="0.19" data-track-index="30"></audio>
+      <audio id="sfx-horas-21" src="assets/sfx/reloj-tock.wav" data-start="1.931" data-duration="0.075" data-volume="0.18" data-track-index="31"></audio>
+      <!-- La cámara se aplana y las horas se pliegan -->
+      <audio id="sfx-aplana" src="assets/sfx/aire.wav" data-start="2.55" data-duration="0.575" data-volume="0.40" data-track-index="32"></audio>
+      <!-- Drop: la semana sube -->
+      <audio id="sfx-drop" src="assets/sfx/impacto-grave.wav" data-start="3.0" data-duration="1.600" data-volume="0.42" data-track-index="33"></audio>
+      <!-- Cada barra de la semana -->
+      <audio id="sfx-semana-1" src="assets/sfx/vidrio-1.wav" data-start="3.02" data-duration="0.276" data-volume="0.16" data-track-index="34"></audio>
+      <audio id="sfx-semana-2" src="assets/sfx/vidrio-5.wav" data-start="3.065" data-duration="0.132" data-volume="0.16" data-track-index="35"></audio>
+      <audio id="sfx-semana-3" src="assets/sfx/vidrio-6.wav" data-start="3.11" data-duration="0.132" data-volume="0.16" data-track-index="36"></audio>
+      <audio id="sfx-semana-4" src="assets/sfx/vidrio-1.wav" data-start="3.155" data-duration="0.276" data-volume="0.16" data-track-index="37"></audio>
+      <audio id="sfx-semana-5" src="assets/sfx/vidrio-5.wav" data-start="3.2" data-duration="0.132" data-volume="0.16" data-track-index="38"></audio>
+      <audio id="sfx-semana-6" src="assets/sfx/vidrio-6.wav" data-start="3.245" data-duration="0.132" data-volume="0.16" data-track-index="39"></audio>
+      <audio id="sfx-semana-7" src="assets/sfx/vidrio-1.wav" data-start="3.29" data-duration="0.276" data-volume="0.16" data-track-index="40"></audio>
+      <!-- Se dibuja el promedio -->
+      <audio id="sfx-promedio" src="assets/sfx/marcador-suave.wav" data-start="3.24" data-duration="0.420" data-volume="0.28" data-track-index="41"></audio>
+      <!-- El viernes se enciende -->
+      <audio id="sfx-viernes" src="assets/sfx/brillo-gotas.wav" data-start="3.86" data-duration="0.337" data-volume="0.38" data-track-index="42"></audio>
+      <audio id="sfx-viernes-ping" src="assets/sfx/vidrio-5.wav" data-start="3.87" data-duration="0.132" data-volume="0.22" data-track-index="43"></audio>
+      <audio id="sfx-callout" src="assets/sfx/tecla-2.wav" data-start="3.93" data-duration="0.099" data-volume="0.20" data-track-index="44"></audio>
+      <!-- La barra se vuelve un punto de luz -->
+      <audio id="sfx-a-punto" src="assets/sfx/aire.wav" data-start="4.3" data-duration="0.575" data-volume="0.32" data-track-index="45"></audio>
+      <!-- El punto se abre en la primera píldora -->
+      <audio id="sfx-pildora-1" src="assets/sfx/pop.wav" data-start="4.75" data-duration="0.450" data-volume="0.40" data-track-index="46"></audio>
+      <!-- Contadores -->
+      <audio id="sfx-sueno-1" src="assets/sfx/reloj-tock.wav" data-start="4.91" data-duration="0.075" data-volume="0.25" data-track-index="47"></audio>
+      <audio id="sfx-sueno-2" src="assets/sfx/reloj-tick.wav" data-start="4.959" data-duration="0.040" data-volume="0.22" data-track-index="48"></audio>
+      <audio id="sfx-sueno-3" src="assets/sfx/reloj-tock.wav" data-start="5.019" data-duration="0.075" data-volume="0.19" data-track-index="49"></audio>
+      <audio id="sfx-sueno-4" src="assets/sfx/reloj-tick.wav" data-start="5.094" data-duration="0.040" data-volume="0.17" data-track-index="50"></audio>
+      <audio id="sfx-sueno-5" src="assets/sfx/reloj-tock.wav" data-start="5.169" data-duration="0.075" data-volume="0.17" data-track-index="51"></audio>
+      <audio id="sfx-corre" src="assets/sfx/aire.wav" data-start="5.56" data-duration="0.575" data-volume="0.20" data-track-index="52"></audio>
+      <audio id="sfx-pildora-2" src="assets/sfx/pop.wav" data-start="5.79" data-duration="0.450" data-volume="0.34" data-track-index="53"></audio>
+      <audio id="sfx-foco-1" src="assets/sfx/reloj-tock.wav" data-start="5.829" data-duration="0.075" data-volume="0.23" data-track-index="54"></audio>
+      <audio id="sfx-foco-2" src="assets/sfx/reloj-tick.wav" data-start="5.88" data-duration="0.040" data-volume="0.19" data-track-index="55"></audio>
+      <audio id="sfx-foco-3" src="assets/sfx/reloj-tock.wav" data-start="5.959" data-duration="0.075" data-volume="0.16" data-track-index="56"></audio>
+      <audio id="sfx-foco-4" src="assets/sfx/reloj-tick.wav" data-start="6.019" data-duration="0.040" data-volume="0.15" data-track-index="57"></audio>
+      <audio id="sfx-pildora-3" src="assets/sfx/pop.wav" data-start="6.04" data-duration="0.450" data-volume="0.32" data-track-index="58"></audio>
+      <audio id="sfx-descanso-1" src="assets/sfx/reloj-tock.wav" data-start="6.099" data-duration="0.075" data-volume="0.21" data-track-index="59"></audio>
+      <audio id="sfx-descanso-2" src="assets/sfx/reloj-tick.wav" data-start="6.154" data-duration="0.040" data-volume="0.17" data-track-index="60"></audio>
+      <audio id="sfx-descanso-3" src="assets/sfx/reloj-tock.wav" data-start="6.209" data-duration="0.075" data-volume="0.15" data-track-index="61"></audio>
+      <audio id="sfx-descanso-4" src="assets/sfx/reloj-tick.wav" data-start="6.264" data-duration="0.040" data-volume="0.14" data-track-index="62"></audio>
+      <!-- Bajan las píldoras -->
+      <audio id="sfx-bajan" src="assets/sfx/aire.wav" data-start="6.89" data-duration="0.575" data-volume="0.26" data-track-index="63"></audio>
+      <!-- Se dibuja la llave -->
+      <audio id="sfx-llave" src="assets/sfx/marcador-suave.wav" data-start="7.04" data-duration="0.420" data-volume="0.34" data-track-index="64"></audio>
+      <!-- Aparece el puntaje -->
+      <audio id="sfx-puntaje" src="assets/sfx/vidrio-5.wav" data-start="7.33" data-duration="0.132" data-volume="0.30" data-track-index="65"></audio>
+      <audio id="sfx-puntaje-1" src="assets/sfx/reloj-tock.wav" data-start="7.348" data-duration="0.075" data-volume="0.25" data-track-index="66"></audio>
+      <audio id="sfx-puntaje-2" src="assets/sfx/reloj-tick.wav" data-start="7.402" data-duration="0.040" data-volume="0.21" data-track-index="67"></audio>
+      <audio id="sfx-puntaje-3" src="assets/sfx/reloj-tock.wav" data-start="7.464" data-duration="0.075" data-volume="0.18" data-track-index="68"></audio>
+      <audio id="sfx-puntaje-4" src="assets/sfx/reloj-tick.wav" data-start="7.562" data-duration="0.040" data-volume="0.17" data-track-index="69"></audio>
+      <!-- Flecha verde -->
+      <audio id="sfx-sube" src="assets/sfx/vidrio-6.wav" data-start="7.85" data-duration="0.132" data-volume="0.30" data-track-index="70"></audio>
+      <!-- Salida en blur -->
+      <audio id="sfx-sale-bienestar" src="assets/sfx/swish-3.wav" data-start="8.19" data-duration="0.146" data-volume="0.40" data-track-index="71"></audio>
+      <!-- Scroll entra en whip -->
+      <audio id="sfx-scroll" src="assets/sfx/swish-12.wav" data-start="8.63" data-duration="0.076" data-volume="0.70" data-track-index="72"></audio>
+      <audio id="sfx-scroll-asienta" src="assets/sfx/pop.wav" data-start="8.72" data-duration="0.450" data-volume="0.25" data-track-index="73"></audio>
+      <!-- Se desintegra en teselas -->
+      <audio id="sfx-desintegra" src="assets/sfx/particulas-salida.wav" data-start="9.48" data-duration="0.652" data-volume="0.75" data-track-index="74"></audio>
+      <audio id="sfx-desintegra-aire" src="assets/sfx/aire.wav" data-start="9.46" data-duration="0.575" data-volume="0.22" data-track-index="75"></audio>
+      <!-- Las teselas convergen: succión hacia el candado -->
+      <audio id="sfx-succion" src="assets/sfx/succion.wav" data-start="9.74" data-duration="0.700" data-volume="0.50" data-track-index="76"></audio>
+      <audio id="sfx-converge" src="assets/sfx/particulas-entrada.wav" data-start="9.92" data-duration="0.605" data-volume="0.70" data-track-index="77"></audio>
+      <!-- El candado se asienta -->
+      <audio id="sfx-candado" src="assets/sfx/candado.wav" data-start="10.36" data-duration="0.200" data-volume="0.85" data-track-index="78"></audio>
+      <audio id="sfx-candado-grave" src="assets/sfx/impacto-grave.wav" data-start="10.36" data-duration="1.600" data-volume="0.40" data-track-index="79"></audio>
+      <!-- El candado viaja a la tarjeta -->
+      <audio id="sfx-viaja" src="assets/sfx/aire.wav" data-start="11.25" data-duration="0.575" data-volume="0.32" data-track-index="80"></audio>
+      <!-- La tarjeta se arma alrededor -->
+      <audio id="sfx-tarjeta" src="assets/sfx/swish-1.wav" data-start="11.37" data-duration="0.126" data-volume="0.32" data-track-index="81"></audio>
+      <!-- Filas -->
+      <audio id="sfx-fila-1" src="assets/sfx/tecla-1.wav" data-start="11.64" data-duration="0.061" data-volume="0.16" data-track-index="82"></audio>
+      <audio id="sfx-fila-2" src="assets/sfx/tecla-2.wav" data-start="11.71" data-duration="0.099" data-volume="0.16" data-track-index="83"></audio>
+      <audio id="sfx-fila-3" src="assets/sfx/tecla-3.wav" data-start="11.79" data-duration="0.054" data-volume="0.16" data-track-index="84"></audio>
+      <audio id="sfx-fila-4" src="assets/sfx/tecla-4.wav" data-start="11.85" data-duration="0.110" data-volume="0.16" data-track-index="85"></audio>
+      <!-- Se enciende la regla -->
+      <audio id="sfx-interruptor" src="assets/sfx/interruptor.wav" data-start="12.07" data-duration="0.120" data-volume="0.60" data-track-index="86"></audio>
+      <!-- La tarjeta se contrae en el botón -->
+      <audio id="sfx-a-boton" src="assets/sfx/swish-4.wav" data-start="12.51" data-duration="0.146" data-volume="0.42" data-track-index="87"></audio>
+      <audio id="sfx-boton" src="assets/sfx/pop.wav" data-start="12.94" data-duration="0.450" data-volume="0.30" data-track-index="88"></audio>
+      <!-- Reflejo del botón -->
+      <audio id="sfx-brillo-boton" src="assets/sfx/brillo-gotas.wav" data-start="13.05" data-duration="0.337" data-volume="0.22" data-track-index="89"></audio>
+      <!-- Se presiona Empezar -->
+      <audio id="sfx-presiona" src="assets/sfx/click_002.wav" data-start="13.38" data-duration="0.012" data-volume="0.85" data-track-index="90"></audio>
+      <!-- ▶ se vuelve ⏸ -->
+      <audio id="sfx-play-pausa" src="assets/sfx/aire.wav" data-start="13.51" data-duration="0.575" data-volume="0.28" data-track-index="91"></audio>
+      <audio id="sfx-barras" src="assets/sfx/vidrio-1.wav" data-start="13.64" data-duration="0.276" data-volume="0.30" data-track-index="92"></audio>
+      <!-- Logo -->
+      <audio id="sfx-logo" src="assets/sfx/impacto-grave.wav" data-start="13.79" data-duration="1.600" data-volume="0.55" data-track-index="93"></audio>
+      <audio id="sfx-logo-campana" src="assets/sfx/campana.wav" data-start="13.81" data-duration="2.500" data-volume="0.50" data-track-index="94"></audio>
+      <!-- "Pausa" letra a letra -->
+      <audio id="sfx-letra-1" src="assets/sfx/tecla-1.wav" data-start="13.92" data-duration="0.061" data-volume="0.14" data-track-index="95"></audio>
+      <audio id="sfx-letra-2" src="assets/sfx/tecla-2.wav" data-start="13.97" data-duration="0.099" data-volume="0.14" data-track-index="96"></audio>
+      <audio id="sfx-letra-3" src="assets/sfx/tecla-3.wav" data-start="14.02" data-duration="0.054" data-volume="0.14" data-track-index="97"></audio>
+      <audio id="sfx-letra-4" src="assets/sfx/tecla-4.wav" data-start="14.07" data-duration="0.110" data-volume="0.14" data-track-index="98"></audio>
+      <audio id="sfx-letra-5" src="assets/sfx/tecla-1.wav" data-start="14.12" data-duration="0.061" data-volume="0.14" data-track-index="99"></audio>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

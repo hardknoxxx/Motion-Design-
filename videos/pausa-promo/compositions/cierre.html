@@ -1,0 +1,325 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+      color: var(--color-ink, #f5f5f7);
+    }
+    #ci-todo {
+      position: absolute;
+      inset: 0;
+    }
+    #ci-halo {
+      position: absolute;
+      left: 560px;
+      top: 100px;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 59, 48, 0.55), rgba(255, 59, 48, 0.16) 36%, rgba(255, 59, 48, 0) 66%);
+    }
+    #ci-halo-blanco {
+      position: absolute;
+      left: 427px;
+      top: 240px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 40%, rgba(255, 255, 255, 0) 68%);
+    }
+    #ci-bloqueada {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 690px;
+      text-align: center;
+      font-size: 42px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--color-danger, #ff3b30);
+    }
+    #ci-card-env {
+      position: absolute;
+      left: 580px;
+      top: 290px;
+      width: 760px;
+      height: 500px;
+      filter: drop-shadow(0 40px 50px rgba(0, 0, 0, 0.7));
+    }
+    #ci-card {
+      position: absolute;
+      inset: 0;
+    }
+    #ci-card-bg {
+      position: absolute;
+      inset: 0;
+      border-radius: 44px;
+      background: #141416;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+    }
+    .ci-a {
+      position: absolute;
+    }
+    #ci-titulo {
+      left: 56px;
+      top: 46px;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+    #ci-slot {
+      left: 56px;
+      top: 118px;
+      width: 110px;
+      height: 110px;
+      border-radius: 28px;
+      background: #1c1c20;
+    }
+    #ci-fila {
+      left: 192px;
+      top: 154px;
+      font-size: 30px;
+      color: #8e8e93;
+    }
+    #ci-reglas {
+      left: 56px;
+      top: 262px;
+      font-size: 32px;
+      font-weight: 600;
+    }
+    #ci-regla {
+      left: 56px;
+      top: 316px;
+      width: 648px;
+      height: 128px;
+      border-radius: 28px;
+      background: #1c1c20;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+    }
+    #ci-regla svg {
+      position: absolute;
+      left: 26px;
+      top: 40px;
+    }
+    #ci-regla b {
+      position: absolute;
+      left: 148px;
+      top: 28px;
+      font-size: 30px;
+      font-weight: 600;
+    }
+    #ci-regla small {
+      position: absolute;
+      left: 148px;
+      top: 70px;
+      font-size: 26px;
+      color: #8e8e93;
+    }
+    #ci-switch {
+      position: absolute;
+      left: 548px;
+      top: 42px;
+      width: 76px;
+      height: 44px;
+      border-radius: 22px;
+      background: #3a3a3f;
+    }
+    #ci-knob {
+      position: absolute;
+      left: 4px;
+      top: 4px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+    #ci-boton {
+      left: 0;
+      top: 0;
+      width: 760px;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      color: #0a0a0c;
+      font-size: 44px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    #ci-brillo {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.95) 50%, transparent 60%);
+    }
+    .ci-barra {
+      position: absolute;
+      top: 219px;
+      width: 18px;
+      height: 63px;
+      border-radius: 9px;
+      background: #fff;
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.7);
+      transform-origin: 50% 50%;
+    }
+    #ci-candado {
+      position: absolute;
+      left: 820px;
+      top: 360px;
+      width: 280px;
+      height: 280px;
+      border-radius: 67px;
+      background: linear-gradient(160deg, #26262b, #0d0d0f);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.22),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 0 90px rgba(255, 59, 48, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #ci-palabra {
+      position: absolute;
+      left: 838px;
+      top: 452px;
+      font-size: 152px;
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1;
+    }
+    #ci-palabra span {
+      display: inline-block;
+    }
+    #ci-lema {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 650px;
+      text-align: center;
+      font-size: 42px;
+      font-weight: 500;
+      color: #8e8e93;
+      letter-spacing: -0.01em;
+    }
+    #ci-url {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 960px;
+      text-align: center;
+      font-size: 28px;
+      letter-spacing: 0.06em;
+      color: #6e6e74;
+    }
+  </style>
+  <div id="root" data-composition-id="cierre" data-width="1920" data-height="1080">
+    <div id="ci-todo">
+      <div id="ci-halo" data-layout-ignore></div>
+      <div id="ci-halo-blanco" data-layout-ignore></div>
+      <div id="ci-bloqueada">Bloqueada</div>
+      <div id="ci-card-env">
+        <div id="ci-card">
+          <div id="ci-card-bg"></div>
+          <div class="ci-a" id="ci-titulo">Apps bloqueadas</div>
+          <div class="ci-a" id="ci-slot"></div>
+          <div class="ci-a" id="ci-fila">Scroll · Desbloquear</div>
+          <div class="ci-a" id="ci-reglas">Reglas ›</div>
+          <div class="ci-a" id="ci-regla">
+            <svg width="96" height="48" viewBox="0 0 48 24">
+              <rect x="2" y="3" width="14" height="18" rx="3" stroke="#fff" stroke-width="2.2" fill="none" />
+              <path d="M20 12h8m-3-3 3 3-3 3" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" />
+              <path d="M38 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z" fill="#fff" />
+            </svg>
+            <b>Horario laboral</b>
+            <small>Bloqueo · 9 a 18 h</small>
+            <div id="ci-switch"><i id="ci-knob"></i></div>
+          </div>
+          <div class="ci-a" id="ci-boton">
+            <svg id="ci-play" width="34" height="38" viewBox="0 0 17 19"><path d="M1 1.5v16a1 1 0 0 0 1.5.86l13.5-8a1 1 0 0 0 0-1.72L2.5.64A1 1 0 0 0 1 1.5z" fill="#0A0A0C" /></svg>
+            <span id="ci-empezar">Empezar</span>
+          </div>
+          <div id="ci-brillo" data-layout-ignore></div>
+          <i class="ci-barra" id="ci-barra-1" style="left: 354px"></i>
+          <i class="ci-barra" id="ci-barra-2" style="left: 388px"></i>
+        </div>
+      </div>
+      <div id="ci-candado">
+        <svg width="150" height="150" viewBox="0 0 24 24">
+          <rect x="5" y="10.5" width="14" height="10" rx="2.6" fill="#fff" />
+          <path d="M8.2 10.5V8a3.8 3.8 0 0 1 7.6 0v2.5" stroke="#fff" stroke-width="2.2" fill="none" />
+        </svg>
+      </div>
+      <div id="ci-palabra"><span>P</span><span>a</span><span>u</span><span>s</span><span>a</span></div>
+      <div id="ci-lema">Menos pantalla. Más vida.</div>
+      <div id="ci-url">pausa.app</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      gsap.set("#ci-card-env, #ci-titulo, #ci-fila, #ci-reglas, #ci-regla, #ci-boton, #ci-barra-1, #ci-barra-2, #ci-halo-blanco, #ci-palabra span, #ci-lema, #ci-url", { opacity: 0 });
+      gsap.set("#ci-brillo", { xPercent: -120, opacity: 0 });
+
+      // 0 · se apaga el rojo y el candado viaja a su lugar en la tarjeta
+      tl.to("#ci-halo", { opacity: 0, scale: 0.8, duration: 0.3, ease: "power2.in" }, 0);
+      tl.to("#ci-bloqueada", { opacity: 0, filter: "blur(10px)", duration: 0.18, ease: "power2.in" }, 0);
+      tl.to("#ci-candado", { x: -269, y: -37, scale: 0.393, boxShadow: "inset 0 2px 0 rgba(255,255,255,0.22), inset 0 0 0 1px rgba(255,255,255,0.08), 0 0 0px rgba(255,59,48,0)", duration: 0.43, ease: "power3.inOut" }, 0.05);
+      // la tarjeta se arma alrededor del candado
+      tl.set("#ci-card-env", { opacity: 1 }, 0.15);
+      tl.fromTo("#ci-card", { clipPath: "circle(0% at 111px 173px)" }, { clipPath: "circle(160% at 111px 173px)", duration: 0.45, ease: "power2.inOut" }, 0.15);
+      tl.fromTo("#ci-titulo", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 0.43);
+      tl.fromTo("#ci-fila", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.5);
+      tl.fromTo("#ci-reglas", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 0.58);
+      tl.fromTo("#ci-regla", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.35, ease: "expo.out" }, 0.64);
+
+      // 0.86 (beat) · se enciende la regla
+      tl.to("#ci-knob", { x: 32, duration: 0.2, ease: "power3.out" }, 0.86);
+      tl.to("#ci-switch", { backgroundColor: "#34C759", duration: 0.2, ease: "power2.out" }, 0.86);
+
+      // 1.29 (beat) · la tarjeta se contrae en el botón
+      tl.to("#ci-titulo, #ci-fila, #ci-reglas, #ci-regla, #ci-slot", { opacity: 0, filter: "blur(8px)", duration: 0.14, ease: "power2.in" }, 1.29);
+      tl.to("#ci-candado", { opacity: 0, scale: 0.25, filter: "blur(8px)", duration: 0.16, ease: "power2.in" }, 1.29);
+      tl.fromTo("#ci-card", { clipPath: "inset(0px 0px 0px 0px round 44px)" }, { clipPath: "inset(188px 60px 188px 60px round 62px)", duration: 0.43, ease: "power3.inOut", immediateRender: false }, 1.33);
+      tl.to("#ci-card-bg", { backgroundColor: "#F2F2F5", duration: 0.18, ease: "power2.out" }, 1.66);
+      tl.fromTo("#ci-boton", { opacity: 0, filter: "blur(10px)", scale: 0.94 }, { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.3, ease: "expo.out" }, 1.72);
+      // reflejo que cruza el botón una vez
+      tl.set("#ci-brillo", { opacity: 0.85 }, 1.82);
+      tl.fromTo("#ci-brillo", { xPercent: -120 }, { xPercent: 120, duration: 0.5, ease: "power2.inOut", immediateRender: false }, 1.82);
+      tl.set("#ci-brillo", { opacity: 0 }, 2.33);
+
+      // 2.16 (beat) · se presiona
+      tl.to("#ci-card-env", { scale: 0.96, duration: 0.08, ease: "power2.out" }, 2.16);
+      tl.to("#ci-card-env", { scale: 1, duration: 0.16, ease: "power2.out" }, 2.24);
+
+      // 2.30 · ▶ se vuelve ⏸ y el botón se vuelve el ícono de Pausa
+      tl.to("#ci-empezar", { opacity: 0, filter: "blur(8px)", duration: 0.12, ease: "power2.in" }, 2.3);
+      tl.to("#ci-play", { scale: 0, rotation: 90, duration: 0.18, ease: "power3.in" }, 2.3);
+      tl.fromTo("#ci-card", { clipPath: "inset(188px 60px 188px 60px round 62px)" }, { clipPath: "inset(175px 305px 175px 305px round 39px)", duration: 0.32, ease: "power3.inOut", immediateRender: false }, 2.3);
+      tl.to("#ci-card-bg", { backgroundColor: "#1A1A1E", duration: 0.28, ease: "power2.inOut" }, 2.32);
+      tl.set("#ci-barra-1, #ci-barra-2", { opacity: 1 }, 2.42);
+      tl.fromTo("#ci-barra-1, #ci-barra-2", { scaleY: 0 }, { scaleY: 1, duration: 0.3, ease: "back.out(2)", stagger: 0.05, immediateRender: false }, 2.42);
+
+      // 2.58 (beat) · logo: el ícono se corre y entra el nombre
+      tl.to("#ci-card-env", { x: -233, duration: 0.45, ease: "power3.inOut" }, 2.58);
+      tl.fromTo("#ci-halo-blanco", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out", immediateRender: false }, 2.62);
+      tl.fromTo(
+        "#ci-palabra span",
+        { opacity: 0, x: 24, filter: "blur(12px)" },
+        { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.35, ease: "expo.out", stagger: 0.05, immediateRender: false },
+        2.7,
+      );
+      tl.fromTo("#ci-lema", { opacity: 0, filter: "blur(10px)", y: 8 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.35, ease: "power3.out", immediateRender: false }, 3.12);
+      tl.fromTo("#ci-url", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out", immediateRender: false }, 3.45);
+
+      // 4.30 · cierre a negro
+      tl.to("#ci-todo", { opacity: 0, filter: "blur(10px)", scale: 0.98, duration: 0.45, ease: "power2.in" }, 4.82);
+
+      window.__timelines["cierre"] = tl;
+    })();
+  </script>
+</template>

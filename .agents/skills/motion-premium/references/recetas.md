@@ -35,6 +35,8 @@ Los estados iniciales ocultos van con `gsap.set(...)` **fuera** del timeline, no
 
 **Cuidado con `fromTo` tardíos**: un `fromTo` aplica su estado `from` en cuanto se crea (`immediateRender`). Si el `from` es visible (anillo con `opacity: 1`, cursor, chispa en el centro), aparece desde el cuadro 0 aunque el tween empiece en 1 s. Ocúltalo con `gsap.set(..., { opacity: 0 })` y agrega `immediateRender: false` a ese `fromTo`. Revisa siempre el cuadro 0 y los primeros 0,5 s con `snapshot --at 0,0.4`.
 
+**Render en frío**: si un elemento empieza oculto (`gsap.set(..., { opacity: 0 })`) y lo revela un `fromTo`, pon `opacity: 1` también en el destino. Si no, los workers de render que saltan directo a un tiempo dejan el elemento invisible aunque el `snapshot` se vea bien (`lint`: `gsap_cold_seek_hidden_fromto_missing_reveal`).
+
 ## Punto → flood → iris
 
 ```js

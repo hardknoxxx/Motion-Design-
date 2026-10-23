@@ -20,6 +20,7 @@ Recursos libres para motion design (After Effects, Premiere, DaVinci, Cinema 4D,
 | [`.agents/skills/motion-premium/`](.agents/skills/motion-premium/SKILL.md) | **Estilo premium minimalista** aprendido de dos referencias medidas cuadro a cuadro: tokens de color y tipografía, repertorio de transiciones con sus tiempos, recetas de código, sonido mapeado a esta biblioteca y lista de control |
 | `.agents/skills/hyperframes*`, `media-use`, `figma`, `slideshow`, `remotion-to-hyperframes` | Skills de [HyperFrames](https://hyperframes.heygen.com) (HTML → video), instaladas con `npx skills add heygen-com/hyperframes` |
 | [`videos/demo-premium/`](videos/demo-premium/) | Spot de 21 s hecho con la skill y HyperFrames, con el render en `renders/demo-premium.mp4` y su revisión |
+| [`videos/pausa-promo/`](videos/pausa-promo/) | Promo de 16,5 s de la app "Pausa", rehecha con la skill a partir del prototipo en Remotion |
 
 ## Cómo usar cada cosa
 

@@ -1,0 +1,262 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+      color: var(--color-ink, #f5f5f7);
+      perspective: 1700px;
+    }
+    #pn-cam {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+    }
+    #pn-card-env {
+      position: absolute;
+      left: 340px;
+      top: 260px;
+      width: 1240px;
+      height: 560px;
+      filter: drop-shadow(0 50px 60px rgba(0, 0, 0, 0.75));
+    }
+    #pn-card {
+      position: absolute;
+      inset: 0;
+    }
+    #pn-card-bg {
+      position: absolute;
+      inset: 0;
+      border-radius: 40px;
+      background: #141416;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.09),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+    #pn-fecha {
+      position: absolute;
+      left: 64px;
+      top: 54px;
+      font-size: 28px;
+      font-weight: 500;
+      color: #8e8e93;
+    }
+    #pn-total {
+      position: absolute;
+      left: 60px;
+      top: 92px;
+      font-size: 108px;
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      font-variant-numeric: tabular-nums;
+    }
+    #pn-horas {
+      position: absolute;
+      left: 64px;
+      bottom: 64px;
+      width: 1112px;
+      height: 290px;
+      display: flex;
+      align-items: flex-end;
+      gap: 17px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .pn-h {
+      width: 30px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 7px 7px 3px 3px;
+      overflow: hidden;
+      transform-origin: 50% 100%;
+    }
+    .pn-h i {
+      display: block;
+      background: var(--color-hot, #ff8a3d);
+    }
+    .pn-h b {
+      display: block;
+      flex: 1;
+      background: var(--color-blue, #3d8bff);
+    }
+    #pn-titulo {
+      position: absolute;
+      left: 0;
+      width: 1240px;
+      top: 40px;
+      text-align: center;
+      font-size: 30px;
+      font-weight: 500;
+      color: #8e8e93;
+    }
+    .pn-s {
+      position: absolute;
+      bottom: 120px;
+      width: 84px;
+      border-radius: 16px;
+      background: #2c2c31;
+      transform-origin: 50% 100%;
+    }
+    .pn-l {
+      position: absolute;
+      top: 452px;
+      width: 84px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 500;
+      color: #6e6e74;
+    }
+    #pn-prom {
+      position: absolute;
+      left: 180px;
+      top: 236px;
+      width: 880px;
+      height: 0;
+      border-top: 2px dashed rgba(255, 255, 255, 0.28);
+      transform-origin: left center;
+    }
+    #pn-prom-etq {
+      position: absolute;
+      left: 980px;
+      top: 200px;
+      font-size: 26px;
+      font-weight: 500;
+      color: #8e8e93;
+    }
+    #pn-halo {
+      position: absolute;
+      left: 484px;
+      top: 23px;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 138, 61, 0.6), rgba(255, 138, 61, 0.18) 38%, rgba(255, 138, 61, 0) 68%);
+    }
+    #pn-callout {
+      position: absolute;
+      left: 644px;
+      width: 200px;
+      top: 78px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: 650;
+      color: var(--color-hot, #ff8a3d);
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+  <div id="root" data-composition-id="panel" data-width="1920" data-height="1080">
+    <div id="pn-cam" data-layout-allow-overflow>
+      <div id="pn-card-env">
+        <div id="pn-card">
+          <div id="pn-card-bg"></div>
+          <!-- día por hora -->
+          <div id="pn-fecha">Viernes, 4 de septiembre</div>
+          <div id="pn-total">0h 00m</div>
+          <div id="pn-horas"></div>
+          <!-- semana -->
+          <div id="pn-halo"></div>
+          <div id="pn-titulo">Tiempo en pantalla</div>
+          <div id="pn-prom"></div>
+          <div id="pn-prom-etq">prom. 6 h</div>
+          <div class="pn-s" id="pn-s0" style="left: 206px; height: 177px"></div>
+          <div class="pn-s" id="pn-s1" style="left: 330px; height: 207px"></div>
+          <div class="pn-s" id="pn-s2" style="left: 454px; height: 163px"></div>
+          <div class="pn-s" id="pn-s3" style="left: 578px; height: 190px"></div>
+          <div class="pn-s" id="pn-s4" style="left: 702px; height: 314px"></div>
+          <div class="pn-s" id="pn-s5" style="left: 826px; height: 231px"></div>
+          <div class="pn-s" id="pn-s6" style="left: 950px; height: 170px"></div>
+          <div class="pn-l" style="left: 206px">L</div>
+          <div class="pn-l" style="left: 330px">M</div>
+          <div class="pn-l" style="left: 454px">M</div>
+          <div class="pn-l" style="left: 578px">J</div>
+          <div class="pn-l" id="pn-l4" style="left: 702px">V</div>
+          <div class="pn-l" style="left: 826px">S</div>
+          <div class="pn-l" style="left: 950px">D</div>
+          <div id="pn-callout">9h 15m</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+
+      // barras por hora (curva de un día real: noche baja, pico a la tarde)
+      const dia = [0.1, 0.05, 0.03, 0.02, 0.02, 0.06, 0.2, 0.48, 0.6, 0.52, 0.5, 0.62, 0.7, 0.56, 0.5, 0.6, 0.66, 0.76, 0.86, 0.95, 1.0, 0.9, 0.7, 0.42];
+      const horas = document.getElementById("pn-horas");
+      dia.forEach((v, i) => {
+        const h = document.createElement("div");
+        h.className = "pn-h";
+        h.style.height = Math.max(8, v * 280) + "px";
+        h.innerHTML = '<i style="height:' + Math.round(v * 280 * 0.28) + 'px"></i><b></b>';
+        horas.appendChild(h);
+      });
+      const barras = horas.querySelectorAll(".pn-h");
+
+      // estados iniciales de la semana (aparecen recién en el drop)
+      gsap.set(".pn-s, .pn-l, #pn-titulo, #pn-prom, #pn-prom-etq, #pn-halo, #pn-callout", { opacity: 0 });
+
+      // 0–2.55 · cámara 3D que se levanta sobre el panel
+      tl.fromTo(
+        "#pn-cam",
+        { rotationX: 62, rotationZ: -10, scale: 0.78, y: 150 },
+        { rotationX: 26, rotationZ: -3, scale: 1.04, y: 0, duration: 2.55, ease: "power2.out" },
+        0,
+      );
+      tl.fromTo("#pn-card-env", { opacity: 0.45 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+      tl.fromTo("#pn-card", { filter: "blur(10px)" }, { filter: "blur(0px)", duration: 0.5, ease: "power2.out" }, 0);
+      tl.fromTo(barras, { scaleY: 0 }, { scaleY: 1, duration: 0.7, ease: "expo.out", stagger: 0.055 }, 0.25);
+      tl.fromTo("#pn-fecha", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 0.3);
+
+      // contador de horas con la misma curva que sus ticks de sonido
+      const total = document.getElementById("pn-total");
+      const o = { m: 0 };
+      const pinta = () => (total.textContent = Math.floor(o.m / 60) + "h " + String(Math.round(o.m % 60)).padStart(2, "0") + "m");
+      pinta();
+      tl.to(o, { m: 555, duration: 2.2, ease: "power2.out", onUpdate: pinta }, 0.2);
+
+      // 2.58 (beat) · la cámara se aplana, las horas se pliegan y el panel se encoge al gráfico semanal
+      tl.to("#pn-cam", { rotationX: 0, rotationZ: 0, scale: 1, y: 0, duration: 0.43, ease: "power3.inOut" }, 2.58);
+      tl.to(barras, { scaleY: 0, duration: 0.24, ease: "power3.in", stagger: { each: 0.006, from: "center" } }, 2.58);
+      tl.to("#pn-total, #pn-fecha", { opacity: 0, y: -24, filter: "blur(10px)", duration: 0.2, ease: "power2.in" }, 2.58);
+      tl.fromTo(
+        "#pn-card",
+        { clipPath: "inset(0px 0px 0px 0px round 40px)" },
+        { clipPath: "inset(0px 120px 10px 120px round 40px)", duration: 0.43, ease: "power3.inOut" },
+        2.58,
+      );
+
+      // 3.01 (drop) · la semana sube de golpe
+      tl.set(".pn-s", { opacity: 1 }, 3.01);
+      tl.fromTo(".pn-s", { scaleY: 0 }, { scaleY: 1, duration: 0.55, ease: "expo.out", stagger: 0.045 }, 3.01);
+      tl.set("#pn-s4", { backgroundColor: "#3D8BFF" }, 3.01);
+      tl.fromTo("#pn-titulo", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 3.03);
+      tl.fromTo(".pn-l", { opacity: 0 }, { opacity: 1, duration: 0.25, stagger: 0.03 }, 3.12);
+      tl.fromTo("#pn-prom", { opacity: 1, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.4, ease: "power2.inOut" }, 3.3);
+      tl.fromTo("#pn-prom-etq", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 3.55);
+
+      // 3.86 (beat) · el viernes se pasa del promedio: se enciende
+      tl.to("#pn-s4", { backgroundColor: "#FF8A3D", duration: 0.18, ease: "power2.out" }, 3.86);
+      tl.fromTo("#pn-halo", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "expo.out" }, 3.86);
+      tl.to("#pn-l4", { color: "#FF8A3D", duration: 0.18 }, 3.86);
+      tl.to("#pn-s0, #pn-s1, #pn-s2, #pn-s3, #pn-s5, #pn-s6", { opacity: 0.45, duration: 0.3 }, 3.9);
+      tl.fromTo("#pn-callout", { opacity: 0, y: 14, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 3.92);
+
+      // 4.30 (beat) · todo se va salvo el viernes, que se vuelve un punto de luz en el centro
+      tl.to("#pn-s0, #pn-s1, #pn-s2, #pn-s3, #pn-s5, #pn-s6, .pn-l, #pn-titulo, #pn-prom, #pn-prom-etq, #pn-callout", { opacity: 0, filter: "blur(10px)", duration: 0.2, ease: "power2.in" }, 4.3);
+      tl.to("#pn-card-bg", { opacity: 0, duration: 0.25, ease: "power2.in" }, 4.3);
+      tl.to("#pn-card", { clipPath: "inset(-200px -200px -200px -200px round 40px)", duration: 0.01 }, 4.32);
+      tl.fromTo(
+        "#pn-s4",
+        { clipPath: "inset(0px 0px 0px 0px round 16px)" },
+        { clipPath: "inset(140px 25px 140px 25px round 17px)", duration: 0.36, ease: "power3.inOut" },
+        4.34,
+      );
+      tl.to("#pn-s4, #pn-halo", { x: -124, y: -3, duration: 0.38, ease: "power3.inOut" }, 4.34);
+      tl.to("#pn-s4", { backgroundColor: "#F5F5F7", duration: 0.3, ease: "power2.inOut" }, 4.4);
+      tl.to("#pn-halo", { scale: 0.22, opacity: 0.5, duration: 0.38, ease: "power3.inOut" }, 4.34);
+
+      window.__timelines["panel"] = tl;
+    })();
+  </script>
+</template>

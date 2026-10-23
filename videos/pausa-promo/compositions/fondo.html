@@ -1,0 +1,43 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: var(--color-ground, #0a0a0c);
+    }
+    /* foco de luz cenital: radial, nunca lineal (los lineales oscuros hacen banding en H.264) */
+    #fondo-foco {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 62% at 50% 4%, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0) 75%);
+    }
+    #fondo-vineta {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 85% 85% at 50% 50%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%);
+    }
+    #fondo-grano {
+      position: absolute;
+      inset: 0;
+      background-image: url("assets/img/grano.png");
+      background-size: 256px 256px;
+      opacity: 0.035;
+      mix-blend-mode: overlay;
+    }
+  </style>
+  <div id="root" data-composition-id="fondo" data-width="1920" data-height="1080" data-layout-ignore>
+    <div id="fondo-foco"></div>
+    <div id="fondo-vineta"></div>
+    <div id="fondo-grano"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // el foco respira con la música: baja en el cierre a negro
+      tl.fromTo("#fondo-foco", { opacity: 0.55 }, { opacity: 1, duration: 3.0, ease: "power2.out" }, 0);
+      tl.to("#fondo-foco", { opacity: 0, duration: 0.5, ease: "power2.in" }, 16.0);
+      window.__timelines["fondo"] = tl;
+    })();
+  </script>
+</template>

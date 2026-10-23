@@ -1,0 +1,177 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+      color: var(--color-ink, #f5f5f7);
+    }
+    #bq-halo {
+      position: absolute;
+      left: 560px;
+      top: 100px;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 59, 48, 0.55), rgba(255, 59, 48, 0.16) 36%, rgba(255, 59, 48, 0) 66%);
+    }
+    .bq-icono {
+      position: absolute;
+      left: 820px;
+      top: 360px;
+      width: 280px;
+      height: 280px;
+    }
+    .bq-scroll {
+      width: 280px;
+      height: 280px;
+      border-radius: 67px;
+      background: linear-gradient(135deg, #ff3d7f 0%, #7d5aff 55%, #00d4ff 100%);
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bq-candado {
+      width: 280px;
+      height: 280px;
+      border-radius: 67px;
+      background: linear-gradient(160deg, #26262b, #0d0d0f);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.22),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #bq-candado-solido .bq-candado {
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.22),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 0 90px rgba(255, 59, 48, 0.55);
+    }
+    .bq-teselas {
+      position: absolute;
+      left: 820px;
+      top: 360px;
+      width: 280px;
+      height: 280px;
+    }
+    .bq-t {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      overflow: hidden;
+    }
+    .bq-t > div {
+      position: absolute;
+    }
+    .bq-etq {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 690px;
+      text-align: center;
+      font-size: 42px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    #bq-etq-2 {
+      color: var(--color-danger, #ff3b30);
+    }
+  </style>
+  <div id="root" data-composition-id="bloqueo" data-width="1920" data-height="1080">
+    <div id="bq-halo" data-layout-ignore></div>
+    <div class="bq-icono" id="bq-scroll-solido">
+      <div class="bq-scroll" id="bq-scroll-molde">
+        <svg width="154" height="154" viewBox="0 0 24 24">
+          <rect x="4" y="2" width="16" height="6" rx="2" fill="rgba(255,255,255,0.55)" />
+          <rect x="4" y="9" width="16" height="6" rx="2" fill="rgba(255,255,255,0.8)" />
+          <rect x="4" y="16" width="16" height="6" rx="2" fill="#fff" />
+        </svg>
+      </div>
+    </div>
+    <div class="bq-icono" id="bq-candado-solido">
+      <div class="bq-candado" id="bq-candado-molde">
+        <svg width="150" height="150" viewBox="0 0 24 24">
+          <rect x="5" y="10.5" width="14" height="10" rx="2.6" fill="#fff" />
+          <path d="M8.2 10.5V8a3.8 3.8 0 0 1 7.6 0v2.5" stroke="#fff" stroke-width="2.2" fill="none" />
+        </svg>
+      </div>
+    </div>
+    <div class="bq-teselas" id="bq-tes-scroll" data-layout-allow-overflow data-layout-ignore></div>
+    <div class="bq-teselas" id="bq-tes-candado" data-layout-allow-overflow data-layout-ignore></div>
+    <div class="bq-etq" id="bq-etq-1">Scroll</div>
+    <div class="bq-etq" id="bq-etq-2">Bloqueada</div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      let s = 41;
+      const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+
+      // teselas de 28 px: cada una muestra su pedazo del ícono
+      const arma = (cont, molde) => {
+        const html = document.getElementById(molde).outerHTML.replace(/id="[^"]*"/, "");
+        const out = [];
+        for (let r = 0; r < 10; r++)
+          for (let c = 0; c < 10; c++) {
+            const t = document.createElement("div");
+            t.className = "bq-t";
+            t.style.left = c * 28 + "px";
+            t.style.top = r * 28 + "px";
+            t.innerHTML = '<div style="left:' + -c * 28 + "px;top:" + -r * 28 + 'px">' + html + "</div>";
+            document.getElementById(cont).appendChild(t);
+            out.push({ el: t, r, c });
+          }
+        return out;
+      };
+      const tesScroll = arma("bq-tes-scroll", "bq-scroll-molde");
+      const tesCandado = arma("bq-tes-candado", "bq-candado-molde");
+      gsap.set("#bq-tes-scroll, #bq-tes-candado, #bq-candado-solido, #bq-halo, #bq-etq-2", { opacity: 0 });
+
+      // 0 · Scroll entra en whip vertical
+      tl.fromTo("#bq-scroll-solido", { y: 320, scale: 0.92, filter: "blur(22px)" }, { y: 0, scale: 1, filter: "blur(0px)", duration: 0.42, ease: "expo.out" }, 0);
+      tl.fromTo("#bq-etq-1", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power2.out" }, 0.18);
+
+      // 0.86 (beat) · se desintegra: cada tesela sale desde el centro
+      tl.set("#bq-scroll-solido", { opacity: 0 }, 0.86);
+      tl.set("#bq-tes-scroll", { opacity: 1 }, 0.86);
+      tesScroll.forEach(({ el, r, c }) => {
+        const dx = c - 4.5 + (rnd() - 0.5) * 2;
+        const dy = r - 4.5 + (rnd() - 0.5) * 2;
+        const d = Math.hypot(dx, dy) || 1;
+        const dist = 160 + rnd() * 320;
+        tl.to(
+          el,
+          { x: (dx / d) * dist, y: (dy / d) * dist, rotation: (rnd() - 0.5) * 160, scale: 0.35, opacity: 0, duration: 0.5 + rnd() * 0.15, ease: "power2.out" },
+          0.86 + rnd() * 0.08,
+        );
+      });
+      tl.to("#bq-etq-1", { opacity: 0, filter: "blur(10px)", duration: 0.18, ease: "power2.in" }, 0.86);
+
+      // 1.30 (beat) · otras teselas convergen y arman el candado
+      tl.set("#bq-tes-candado", { opacity: 1 }, 1.3);
+      tesCandado.forEach(({ el }) => {
+        const a = rnd() * Math.PI * 2;
+        const dist = 280 + rnd() * 300;
+        tl.fromTo(
+          el,
+          { x: Math.cos(a) * dist, y: Math.sin(a) * dist, rotation: (rnd() - 0.5) * 140, scale: 0.4, opacity: 0 },
+          { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1, duration: 0.36, ease: "power3.out", immediateRender: false },
+          1.3 + rnd() * 0.07,
+        );
+      });
+
+      // 1.74 (beat) · el candado se asienta y el halo rojo cae
+      tl.set("#bq-tes-candado", { opacity: 0 }, 1.74);
+      tl.set("#bq-candado-solido", { opacity: 1 }, 1.74);
+      tl.fromTo("#bq-candado-solido", { scale: 1.07 }, { scale: 1, duration: 0.3, ease: "expo.out", immediateRender: false }, 1.74);
+      tl.fromTo("#bq-halo", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out", immediateRender: false }, 1.74);
+      tl.fromTo("#bq-etq-2", { opacity: 0, filter: "blur(10px)", y: 8 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.28, ease: "expo.out", immediateRender: false }, 1.8);
+
+      window.__timelines["bloqueo"] = tl;
+    })();
+  </script>
+</template>
