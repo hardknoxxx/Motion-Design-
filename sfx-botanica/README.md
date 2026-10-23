@@ -25,6 +25,22 @@ Todos los sonidos son **CC0 (dominio público)**: se pueden usar en proyectos co
 | `07-ambientes/` | `parque-aves.mp3` | 7 min 29 s | Ambiente de parque con pájaros |
 | `07-ambientes/` | `parque-viento-hojas.mp3` | 4 min 17 s | Viento entre árboles y hojas |
 
+### `08-procesados/`: listos para motion premium
+
+Derivados de los sonidos de arriba y de `sfx/`: recortados, sin agudos ásperos y con fades, en WAV 48 kHz estéreo. Son los que usa `videos/demo-premium`.
+
+| Archivo | Origen | Uso |
+|---|---|---|
+| `gota-1…5.wav` | Gotas sueltas extraídas de `gotas-de-agua-ambiente`, filtradas 300 Hz–9 kHz | Partículas, chips que aterrizan, estrellas, punto final |
+| `brillo-gotas.wav` | Tres gotas subidas de tono y escalonadas | Brillo de logo, reflejo sobre una tarjeta |
+| `tecla-1…4.wav` | Clicks de Kenney UI con ±7 % de tono y paso bajo a 4,2 kHz | Tipeo suave: una tecla por carácter, rotando |
+| `reloj-tick.wav`, `reloj-tock.wav` | Ticks de Kenney Interface, el tock bajado un 20 % | Countdown y números que ruedan (alternarlos) |
+| `marcador-suave.wav` | Ráfaga de viento + roce de papel, paso bajo a 3 kHz | Subrayados y marcadores: un barrido de aire, no un raspón |
+| `hojas-suave-1…3.wav` | Crujidos de hojas sin el siseo de arriba de 5 kHz | Chips que entran o se dispersan, hojas que giran |
+| `agua-corriente-corta.wav` | 0,9 s del arroyo | Líneas que se dibujan (riego, rutas) |
+| `pajaro-canto-breve.wav` | El canto aislado de `pajaro-canto-corto` | Firma botánica tras el logo |
+| `cama-botanica.wav` | Viento suave + aves lejanas, 21 s a −30 LUFS | Cama ambiental bajo todo el video, para que nunca suene vacío |
+
 ## Créditos (todos CC0, vía OpenGameArt.org)
 
 | Sonido | Autor | Fuente |

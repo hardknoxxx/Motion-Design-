@@ -18,7 +18,8 @@ Una app ficticia de cuidado de plantas, en cinco ideas, una por escena:
 
 - `npx hyperframes check`: **ok**, sin errores.
 - Se revisaron con `snapshot` todas las costuras entre escenas, el morph del producto y el cuadro 0.
-- Audio medido con `hyperframes audio`: pico real −1,5 dBTP, sin clipping, −21 LUFS integrados. **No se escuchó.** Al ser solo efectos, sin música de fondo, la sonoridad integrada queda baja para redes (el objetivo es −16 a −14). Con una pista de música se resuelve.
+- Audio medido con `hyperframes audio`, sin escucharlo. El master final queda en −16,5 LUFS integrados con pico real de −1,4 dBTP, sin clipping y sin huecos de silencio después de los 0,2 s.
+- Sonido (segunda pasada): 139 eventos sobre una cama ambiental botánica (viento suave y aves lejanas a −30 LUFS). Hay gotas de agua para las partículas y los chips, una tecla suave por carácter y ticks de reloj que siguen la curva del countdown y de los números que ruedan. El subrayado de "adivinar." ahora suena como un barrido de aire con un roce de papel, con el centroide en ~1,1 kHz (el raspón anterior estaba en ~7,5 kHz). La ruta de riego suena a agua y el logo cierra con un canto de pájaro breve. Se verificó que los golpes caen sobre su imagen (onsets del render contra la hoja de cues).
 - Sin música: este entorno no tiene fuente de música. El ritmo sigue una grilla virtual de 120 BPM (cortes cada 0,5 s en la racha de datos).
 
 ## Decisiones creativas
@@ -35,6 +36,6 @@ Una app ficticia de cuidado de plantas, en cinco ideas, una por escena:
 
 ## Lo más débil y qué haría con más tiempo
 
-1. **Sin música.** Es lo que más separa este demo de la referencia. Le pondría una pista de 108–120 BPM y movería los cortes a sus beats reales (`npx hyperframes beats`).
+1. **Sin música.** La cama ambiental llena el espacio, pero una pista de 108–120 BPM con los cortes en sus beats reales (`npx hyperframes beats`) lo acercaría más a la referencia.
 2. **El verde del "objeto se vuelve mundo"** (13,1–13,5 s) crece desde arriba a la izquierda y tapa el HUD; podría crecer desde el centro del teléfono.
 3. **El intro** (0–1 s) tiene medio segundo de papel vacío antes de que caiga el punto. Es fiel a la referencia, pero en redes el primer cuadro debería tener algo.

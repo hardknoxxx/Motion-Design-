@@ -74,19 +74,29 @@ Usa **3–5 tipos por video** y nunca dos iguales seguidas. Código listo en [re
 
 ## Sonido
 
-El sonido marca el ritmo: cada corte o llegada tiene un efecto, y el remate tiene el golpe más fuerte. Todos los archivos están en este repo:
+El sonido marca el ritmo: cada corte o llegada tiene un efecto y el remate tiene el golpe más fuerte. Un video premium **nunca suena vacío**, pero tampoco ruidoso: hay una cama continua muy baja y muchos detalles pequeños, cada uno pegado a algo que se ve. Los archivos están en este repo; los de `sfx-botanica/08-procesados/` ya vienen limpios.
 
-| Acción en pantalla | Archivo sugerido |
-|---|---|
-| Flood de color, escalera, objeto→mundo | `sfx/whoosh-transiciones/swish-*.wav`, `whoosh2_0.wav` (rotar 2–3) |
-| Chip, badge o número que aterriza | `sfx/pops-burbujas/pop-*.wav`, `sfx/ui-interfaz/kenney-ui/click*.wav` |
-| Tipeo | `sfx/ui-interfaz/kenney-interface/tick_*.wav` a −12 dB |
-| Toque de botón | `sfx/ui-interfaz/kenney-interface/click_00*.wav` |
-| Notificación | `sfx/campanas-acentos/bell_ding*.wav` a −10 dB |
-| Logo final (una vez) | `sfx/impactos/impactSoft_heavy_*.wav` + `sfx/jingles-stingers/` |
-| Hojas (tema botánico) | `sfx-botanica/01-hojas/hojas-secas-crujido-*.wav` |
+| Acción en pantalla | Archivo | Volumen orientativo (`data-volume`) |
+|---|---|---|
+| Todo el video (cama) | `08-procesados/cama-botanica.wav` (−30 LUFS) | 1,0 |
+| Flood de color, escalera, objeto→mundo | `sfx/whoosh-transiciones/swish-*.wav` (rotar 2–3) | 0,6–0,85 |
+| Partículas que salen o convergen | `08-procesados/gota-1…5.wav`, una por partícula visible, escalonadas | 0,15–0,25 |
+| Chip o badge que aterriza | `gota-*` + un solo `hojas-suave-*` para toda la cascada | 0,25–0,3 |
+| Tipeo | `08-procesados/tecla-1…4.wav`, **una por carácter**, rotando | 0,35 (real) · 0,1 (placeholder) · 0,22 (decorativo) |
+| Countdown o número que rueda | `reloj-tock` / `reloj-tick` alternados (ver abajo) | 0,2–0,3 |
+| Marcador o subrayado | `08-procesados/marcador-suave.wav`, arrancando 0,1 s **antes** del trazo | 0,6 |
+| Reflejo sobre una tarjeta | `08-procesados/brillo-gotas.wav` | 0,15 |
+| Línea que se dibuja (ruta, riego) | `08-procesados/agua-corriente-corta.wav` | 0,5 |
+| Toque de botón | `sfx/ui-interfaz/kenney-interface/click_002.wav` | 0,8 |
+| Notificación | `sfx/campanas-acentos/bell_ding2.wav` | 0,25 |
+| Logo (una vez) | `impactSoft_heavy` + `brillo-gotas` + `pajaro-canto-breve` 0,3 s después | 0,85 · 0,4 · 0,3 |
+| Punto final | una `gota-*` | 0,4 |
 
-El pico del efecto va **un frame después** de la imagen. Si no hay música, el ritmo lo marca una grilla virtual de 108–120 BPM (un beat ≈ 15 frames a 30 fps): los cortes van sobre el beat y los cambios de escena sobre el compás.
+- **Ticks de reloj que siguen la animación**: no los pongas a intervalo fijo. Pon un tick cada vez que el progreso del tween cruza k/N (N ≈ 24 para 2 s), calculado con la misma curva (`power2.inOut`): quedan densos donde los números corren y espaciados donde frenan. En un rodillo `expo.out` de 0,42 s van a 0,03 · 0,07 · 0,12 · 0,19 · 0,29 s, cada vez más suaves.
+- **Nada áspero**: antes de usar un sonido, mide su centroide espectral. Por encima de ~5 kHz (raspones, siseos de hojas sin filtrar, `scratch_*`) suena barato; pásalo por un paso bajo a 3–5 kHz o cámbialo.
+- **Sin repetición audible**: rota 3–5 variantes de cada sonido corto y baja un poco el volumen de cada repetición dentro de una ráfaga.
+- **Master**: mide el render con `hyperframes audio`. Sube la mezcla a **−16 LUFS** con un limitador a −1,5 dBTP: `ffmpeg -i in.mp4 -af "volume=XdB,alimiter=limit=0.84:level=0" -c:v copy out.mp4`. Pon siempre `level=0`: si no, el limitador sube la ganancia por su cuenta. Y no normalices camas con `loudnorm` dinámico, porque mete pozos de volumen cerca del final.
+- El pico del efecto va **un frame después** de la imagen. Si no hay música, el ritmo lo marca una grilla virtual de 108–120 BPM (un beat ≈ 15 frames a 30 fps): los cortes van sobre el beat y los cambios de escena sobre el compás.
 
 ## Lo que mata el estilo (prohibido)
 
