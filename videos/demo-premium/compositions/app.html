@@ -1,0 +1,506 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Bricolage Grotesque";
+      src: url("assets/fonts/bricolage.ttf");
+      font-weight: 200 800;
+      font-stretch: 75% 100%;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background-color: var(--color-paper, #f3ece4);
+      background-image:
+        linear-gradient(rgba(7, 12, 12, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(7, 12, 12, 0.035) 1px, transparent 1px);
+      background-size: 40px 40px;
+      font-family: "Bricolage Grotesque", sans-serif;
+      color: var(--color-ink, #070c0c);
+    }
+    #app-cam {
+      position: absolute;
+      inset: 0;
+    }
+    /* sombras en capas: van en un envoltorio con drop-shadow para sobrevivir al clip-path */
+    .app-sombra {
+      position: absolute;
+      filter: drop-shadow(0 2px 2px rgba(7, 12, 12, 0.06)) drop-shadow(0 18px 30px rgba(7, 12, 12, 0.16));
+    }
+    #app-busca-env {
+      left: 570px;
+      top: 452px;
+      width: 780px;
+      height: 96px;
+    }
+    #app-busca {
+      position: absolute;
+      inset: 0;
+      border-radius: 48px;
+      background: #fcf4ec;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      padding-left: 36px;
+      font-size: 34px;
+      letter-spacing: -0.015em;
+    }
+    #app-busca-contenido {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .app-lupa {
+      width: 30px;
+      height: 30px;
+      border: 3.5px solid rgba(7, 12, 12, 0.55);
+      border-radius: 50%;
+      position: relative;
+      flex: none;
+    }
+    .app-lupa::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 3.5px;
+      background: rgba(7, 12, 12, 0.55);
+      right: -10px;
+      bottom: -5px;
+      transform: rotate(45deg);
+      border-radius: 2px;
+    }
+    #app-placeholder span {
+      color: rgba(7, 12, 12, 0.38);
+      display: inline-block;
+      opacity: 0;
+    }
+    #app-consulta span {
+      opacity: 0;
+    }
+    #app-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 40px;
+      margin-left: 2px;
+      vertical-align: -8px;
+      background: var(--color-ink, #070c0c);
+    }
+    #app-tel-env {
+      left: 740px;
+      top: 90px;
+      width: 440px;
+      height: 900px;
+    }
+    #app-tel {
+      position: absolute;
+      inset: 0;
+      border-radius: 66px;
+      border: 5px solid var(--color-ink, #070c0c);
+      background: #fcf4ec;
+      overflow: hidden;
+    }
+    #app-isla {
+      position: absolute;
+      left: 145px;
+      top: 18px;
+      width: 140px;
+      height: 40px;
+      border-radius: 20px;
+      background: var(--color-ink, #070c0c);
+    }
+    #app-mini {
+      position: absolute;
+      left: 30px;
+      top: 84px;
+      width: 370px;
+      height: 56px;
+      border-radius: 28px;
+      background: #efe7dc;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-left: 20px;
+      font-size: 22px;
+    }
+    #app-mini .app-lupa {
+      width: 20px;
+      height: 20px;
+      border-width: 3px;
+    }
+    #app-mini .app-lupa::after {
+      width: 8px;
+      height: 3px;
+      right: -7px;
+      bottom: -4px;
+    }
+    #app-flood {
+      position: absolute;
+      left: 330px;
+      top: -40px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: var(--color-brand, #1e4d2b);
+    }
+    #app-plan {
+      position: absolute;
+      inset: 0;
+      background: #fcf4ec;
+      padding: 96px 34px 0;
+    }
+    #app-plan .mono {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      color: rgba(7, 12, 12, 0.5);
+    }
+    #app-plan h3 {
+      margin-top: 6px;
+      font-size: 40px;
+      font-weight: 720;
+      letter-spacing: -0.035em;
+    }
+    #app-ruta {
+      position: absolute;
+      left: 34px;
+      top: 230px;
+      overflow: visible;
+    }
+    #app-eta {
+      position: absolute;
+      left: 34px;
+      bottom: 46px;
+      width: 362px;
+      padding: 22px 24px;
+      border-radius: 26px;
+      background: #f3ece4;
+    }
+    #app-eta-num {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    #app-rueda {
+      height: 96px;
+      overflow: hidden;
+      font-size: 96px;
+      font-weight: 760;
+      letter-spacing: -0.05em;
+      line-height: 96px;
+    }
+    #app-rueda-col div {
+      height: 96px;
+    }
+    #app-eta-num span {
+      font-size: 26px;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+    }
+    #app-barra {
+      margin-top: 14px;
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(7, 12, 12, 0.1);
+      overflow: hidden;
+    }
+    #app-barra i {
+      display: block;
+      height: 100%;
+      width: 100%;
+      background: var(--color-brand, #1e4d2b);
+      transform-origin: left center;
+    }
+    #app-tarjeta-env {
+      left: 760px;
+      top: 300px;
+      width: 400px;
+      height: 486px;
+    }
+    #app-tarjeta {
+      position: absolute;
+      inset: 0;
+      border-radius: 30px;
+      background: #fcf4ec;
+      overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+    #app-foto {
+      height: 260px;
+      background: #e6ead0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    #app-foto img {
+      width: 250px;
+      height: 250px;
+      object-fit: contain;
+    }
+    #app-cuerpo {
+      padding: 22px 26px 0;
+    }
+    #app-cuerpo .fila {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    #app-cuerpo b {
+      font-size: 33px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    #app-cuerpo .rating {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    #app-cuerpo .meta {
+      margin-top: 6px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 17px;
+      letter-spacing: 0.06em;
+      color: rgba(7, 12, 12, 0.66);
+    }
+    #app-boton {
+      margin: 24px 26px 0;
+      height: 64px;
+      border-radius: 32px;
+      background: var(--color-brand, #1e4d2b);
+      color: #f3ece4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 620;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+    #app-brillo {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, 0.55) 50%, transparent 62%);
+      mix-blend-mode: soft-light;
+    }
+    #app-toque {
+      position: absolute;
+      left: 940px;
+      top: 690px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid rgba(7, 12, 12, 0.55);
+      background: rgba(7, 12, 12, 0.12);
+    }
+    #app-aviso-env {
+      left: 755px;
+      top: 104px;
+      width: 410px;
+      height: 96px;
+    }
+    #app-aviso {
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      background: #fcf4ec;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-left: 18px;
+    }
+    #app-aviso b {
+      display: block;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    #app-aviso small {
+      display: block;
+      font-size: 18px;
+      color: rgba(7, 12, 12, 0.55);
+    }
+    .app-icono {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      background: var(--color-brand, #1e4d2b);
+      flex: none;
+      position: relative;
+    }
+    .app-icono::after {
+      content: "";
+      position: absolute;
+      left: 21px;
+      top: 13px;
+      width: 16px;
+      height: 32px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      background: var(--color-accent, #cdd54a);
+    }
+    #app-mundo {
+      position: absolute;
+      left: 758px;
+      top: 116px;
+      width: 63px;
+      height: 63px;
+      border-radius: 17px;
+      background: var(--color-brand, #1e4d2b);
+    }
+  </style>
+  <div id="root" data-composition-id="app" data-width="1920" data-height="1080">
+    <div id="app-cam" data-layout-allow-overflow>
+      <div class="app-sombra" id="app-tel-env">
+        <div id="app-tel">
+          <div id="app-mini"><i class="app-lupa"></i>geranio</div>
+          <div id="app-flood"></div>
+          <div id="app-plan">
+            <div class="mono">PLAN DE RIEGO</div>
+            <h3>Geranio silvestre</h3>
+            <svg id="app-ruta" width="362" height="300" viewBox="0 0 362 300">
+              <path id="app-ruta-base" d="M30 30 H210 V150 H110 V262 H320" fill="none" stroke="rgba(7,12,12,.08)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+              <path id="app-ruta-linea" d="M30 30 H210 V150 H110 V262 H320" fill="none" stroke="#1E4D2B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="30" cy="30" r="13" fill="#070C0C" />
+              <circle id="app-ruta-meta" cx="320" cy="262" r="15" fill="#CDD54A" stroke="#070C0C" stroke-width="4" />
+            </svg>
+            <div id="app-eta">
+              <div class="mono">PRÓXIMO RIEGO EN</div>
+              <div id="app-eta-num">
+                <div id="app-rueda">
+                  <div id="app-rueda-col"><div>7</div><div>5</div><div>3</div><div>1</div></div>
+                </div>
+                <span id="app-eta-unidad">días</span>
+              </div>
+              <div id="app-barra"><i id="app-barra-relleno"></i></div>
+            </div>
+          </div>
+          <div id="app-isla"></div>
+        </div>
+      </div>
+
+      <div class="app-sombra" id="app-busca-env">
+        <div id="app-busca">
+          <div id="app-busca-contenido">
+            <i class="app-lupa"></i>
+            <div>
+              <span id="app-placeholder"><span>¿</span><span>Q</span><span>u</span><span>é</span><span>&nbsp;</span><span>p</span><span>l</span><span>a</span><span>n</span><span>t</span><span>a</span><span>&nbsp;</span><span>t</span><span>i</span><span>e</span><span>n</span><span>e</span><span>s</span><span>?</span></span><span id="app-consulta"><span>g</span><span>e</span><span>r</span><span>a</span><span>n</span><span>i</span><span>o</span></span><i id="app-cursor"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-sombra" id="app-tarjeta-env">
+        <div id="app-tarjeta">
+          <div id="app-foto"><img id="app-foto-img" src="assets/img/LeafSet025-01.png" alt="" /></div>
+          <div id="app-cuerpo">
+            <div class="fila" id="app-fila-1"><b>Geranio silvestre</b><span class="rating">★ 4,9</span></div>
+            <div class="meta" id="app-fila-2">RIEGO 7 D · LUZ INDIRECTA</div>
+          </div>
+          <div id="app-boton">Agregar</div>
+          <div id="app-brillo"></div>
+        </div>
+      </div>
+      <div id="app-toque"></div>
+
+      <div class="app-sombra" id="app-aviso-env">
+        <div id="app-aviso">
+          <i class="app-icono"></i>
+          <div><b>Hora de regar</b><small>Tu geranio tiene sed.</small></div>
+        </div>
+      </div>
+    </div>
+    <div id="app-mundo"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+
+      // estados iniciales que dependen del tiempo
+      gsap.set("#app-tel-env, #app-tarjeta-env, #app-aviso-env, #app-mundo, #app-toque", { opacity: 0 });
+
+      // 0.1 aparece el buscador
+      tl.fromTo("#app-busca-env", { opacity: 0, scale: 0.96, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, 0.1);
+
+      // placeholder letra a letra (sube 6 px y aparece)
+      const ph = document.querySelectorAll("#app-placeholder span");
+      ph.forEach((el, i) => tl.fromTo(el, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.16, ease: "power2.out" }, 0.55 + i * 0.03));
+      // se borra rápido, de atrás hacia adelante
+      for (let i = ph.length - 1; i >= 0; i--) tl.set(ph[i], { display: "none" }, 1.45 + (ph.length - 1 - i) * 0.02);
+      // se tipea la consulta real
+      const q = document.querySelectorAll("#app-consulta span");
+      q.forEach((el, i) => tl.set(el, { opacity: 1 }, 1.95 + i * 0.085));
+      tl.fromTo("#app-cursor", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "steps(1)", repeat: 9, yoyo: true }, 0.4);
+
+      // 2.75 morph: el buscador se vuelve la isla del teléfono
+      tl.to("#app-busca-contenido", { opacity: 0, filter: "blur(6px)", duration: 0.12 }, 2.75);
+      tl.fromTo(
+        "#app-busca",
+        { clipPath: "inset(0px 0px 0px 0px round 48px)" },
+        { clipPath: "inset(28px 320px 28px 320px round 20px)", duration: 0.45, ease: "power3.inOut" },
+        2.8,
+      );
+      tl.to("#app-busca-env", { y: -367, duration: 0.45, ease: "power3.inOut" }, 2.8);
+      tl.to("#app-busca", { backgroundColor: "#070C0C", boxShadow: "inset 0 1px 0 rgba(255,255,255,0)", duration: 0.3, ease: "power2.in" }, 2.95);
+      tl.set("#app-busca-env", { opacity: 0 }, 3.25);
+      // el teléfono se abre desde la isla, recién cuando la píldora llegó
+      tl.set("#app-tel-env", { opacity: 1 }, 3.25);
+      tl.fromTo(
+        "#app-tel",
+        { clipPath: "inset(18px 150px 842px 150px round 20px)" },
+        { clipPath: "inset(0px 0px 0px 0px round 66px)", duration: 0.38, ease: "power3.inOut" },
+        3.25,
+      );
+      tl.fromTo("#app-mini", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 3.52);
+
+      // 3.45 la tarjeta sube con capas escalonadas
+      tl.set("#app-tarjeta-env", { opacity: 1 }, 3.6);
+      tl.fromTo("#app-tarjeta-env", { y: 520 }, { y: 0, duration: 0.5, ease: "expo.out" }, 3.6);
+      tl.fromTo("#app-foto-img", { scale: 1.15, rotation: -8 }, { scale: 1, rotation: 0, duration: 0.7, ease: "expo.out" }, 3.6);
+      tl.fromTo("#app-fila-1, #app-fila-2, #app-boton", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "expo.out", stagger: 0.05 }, 3.7);
+      // reflejo sutil que cruza una vez
+      tl.fromTo("#app-brillo", { xPercent: -120 }, { xPercent: 120, duration: 0.6, ease: "power2.inOut" }, 4.1);
+
+      // 4.15 toque en el botón
+      tl.fromTo("#app-toque", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.12, ease: "power2.out" }, 4.25);
+      tl.to("#app-toque", { opacity: 0, scale: 1.6, duration: 0.25, ease: "power2.out" }, 4.39);
+      tl.to("#app-boton", { scale: 0.96, duration: 0.08, ease: "power2.out" }, 4.3);
+      tl.to("#app-boton", { scale: 1, duration: 0.14, ease: "power2.out" }, 4.38);
+
+      // 4.35 la tarjeta crece y rompe el marco; el resto se difumina
+      tl.to("#app-tarjeta-env", { scale: 1.42, y: -30, duration: 0.45, ease: "power2.inOut" }, 4.5);
+      tl.to("#app-tel-env", { filter: "blur(10px)", opacity: 0.55, duration: 0.35, ease: "power2.out" }, 4.55);
+      // whip vertical
+      tl.to("#app-tarjeta-env", { y: -1150, filter: "blur(22px)", duration: 0.22, ease: "power3.in" }, 5.05);
+      tl.to("#app-tel-env", { filter: "blur(0px)", opacity: 1, duration: 0.2, ease: "power2.out" }, 5.2);
+      tl.set("#app-mini", { opacity: 0 }, 5.27);
+
+      // 5.12 flood verde desde la esquina del teléfono, y detrás el plan de riego
+      tl.fromTo("#app-flood", { scale: 0 }, { scale: 13, duration: 0.32, ease: "power2.inOut" }, 5.27);
+      tl.fromTo(
+        "#app-plan",
+        { clipPath: "circle(0% at 92% 4%)" },
+        { clipPath: "circle(150% at 92% 4%)", duration: 0.38, ease: "power2.inOut" },
+        5.41,
+      );
+      // ruta que se dibuja y días que ruedan
+      tl.fromTo("#app-ruta-linea", { strokeDasharray: 720, strokeDashoffset: 720 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 5.7);
+      tl.fromTo("#app-ruta-meta", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.3, ease: "back.out(2.5)" }, 6.2);
+      tl.fromTo("#app-barra-relleno", { scaleX: 0 }, { scaleX: 0.86, duration: 0.6, ease: "power2.inOut" }, 5.7);
+      [1, 2, 3].forEach((k, i) => {
+        tl.to("#app-rueda-col", { y: -96 * k, duration: 0.16, ease: "power3.out" }, 5.77 + i * 0.18);
+        tl.fromTo("#app-rueda", { filter: "blur(0px)" }, { filter: "blur(4px)", duration: 0.06, yoyo: true, repeat: 1 }, 5.77 + i * 0.18);
+      });
+      tl.set("#app-eta-unidad", { textContent: "día" }, 6.31);
+
+      // 6.25 notificación que cae desde la isla + empuje de cámara
+      tl.set("#app-aviso-env", { opacity: 1 }, 6.3);
+      tl.fromTo("#app-aviso-env", { y: -90, scale: 0.9 }, { y: 0, scale: 1, duration: 0.38, ease: "expo.out" }, 6.3);
+      tl.fromTo("#app-cam", { scale: 1 }, { scale: 1.08, duration: 0.8, ease: "power2.out", transformOrigin: "50% 20%" }, 6.3);
+
+      // 6.7 el ícono se vuelve el mundo
+      tl.set("#app-mundo", { opacity: 1 }, 6.75);
+      tl.fromTo("#app-mundo", { scale: 1.08 }, { scale: 48, duration: 0.45, ease: "power2.inOut" }, 6.75);
+      tl.to("#app-cam", { filter: "blur(15px)", duration: 0.3, ease: "power2.in" }, 6.75);
+
+      window.__timelines["app"] = tl;
+    })();
+  </script>
+</template>

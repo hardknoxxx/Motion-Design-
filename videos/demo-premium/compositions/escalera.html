@@ -1,0 +1,56 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .esc-banda {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      height: 156px;
+      background: var(--color-ink, #070c0c);
+    }
+    /* borde de ataque difuminado: se lee como estela horizontal */
+    .esc-banda::before,
+    .esc-banda::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 70px;
+      height: 100%;
+    }
+    .esc-banda::after {
+      right: -70px;
+      background: linear-gradient(90deg, #070c0c, rgba(7, 12, 12, 0.5) 45%, rgba(7, 12, 12, 0));
+    }
+    .esc-banda::before {
+      left: -70px;
+      background: linear-gradient(270deg, #070c0c, rgba(7, 12, 12, 0.5) 45%, rgba(7, 12, 12, 0));
+    }
+  </style>
+  <div id="root" data-composition-id="escalera" data-width="1920" data-height="1080" data-layout-ignore>
+    <div class="esc-banda" id="esc-0" style="top: 0px"></div>
+    <div class="esc-banda" id="esc-1" style="top: 154px"></div>
+    <div class="esc-banda" id="esc-2" style="top: 308px"></div>
+    <div class="esc-banda" id="esc-3" style="top: 462px"></div>
+    <div class="esc-banda" id="esc-4" style="top: 616px"></div>
+    <div class="esc-banda" id="esc-5" style="top: 770px"></div>
+    <div class="esc-banda" id="esc-6" style="top: 924px"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      for (let i = 0; i < 7; i++) {
+        // entra en escalera: la banda de abajo primero
+        const k = 6 - i;
+        tl.fromTo("#esc-" + i, { x: -2010 }, { x: 0, duration: 0.3, ease: "power3.in" }, 0.08 + k * 0.03);
+        // aguanta en negro y sale por la derecha en el mismo orden
+        tl.to("#esc-" + i, { x: 2010, duration: 0.36, ease: "power3.out" }, 0.64 + k * 0.03);
+      }
+      window.__timelines["escalera"] = tl;
+    })();
+  </script>
+</template>

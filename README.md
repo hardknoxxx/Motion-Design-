@@ -13,6 +13,14 @@ Recursos libres para motion design (After Effects, Premiere, DaVinci, Cinema 4D,
 | [`luts/`](luts/) | 10 looks de color: botánico verde, cálido dorado, película desvanecida, teal-naranja… | `.cube` 33³ |
 | [`tipografias/`](tipografias/) | 25 familias: serif editoriales, sans modernas, manuscritas, mono | TTF (muchas variables) |
 
+## Skills y videos
+
+| Carpeta | Qué hay |
+|---|---|
+| [`.agents/skills/motion-premium/`](.agents/skills/motion-premium/SKILL.md) | **Estilo premium minimalista** aprendido de dos referencias medidas cuadro a cuadro: tokens de color y tipografía, repertorio de transiciones con sus tiempos, recetas de código, sonido mapeado a esta biblioteca y lista de control |
+| `.agents/skills/hyperframes*`, `media-use`, `figma`, `slideshow`, `remotion-to-hyperframes` | Skills de [HyperFrames](https://hyperframes.heygen.com) (HTML → video), instaladas con `npx skills add heygen-com/hyperframes` |
+| [`videos/demo-premium/`](videos/demo-premium/) | Spot de 21 s hecho con la skill y HyperFrames, con el render en `renders/demo-premium.mp4` y su revisión |
+
 ## Cómo usar cada cosa
 
 ### `sfx/`

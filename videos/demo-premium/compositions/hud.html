@@ -1,0 +1,150 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 15px;
+      letter-spacing: 0.14em;
+      color: #070c0c;
+    }
+    #hud-marco {
+      position: absolute;
+      inset: 0;
+      color: #070c0c;
+    }
+    .hud-esq {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-color: currentColor;
+      border-style: solid;
+      border-width: 0;
+      opacity: 0.6;
+    }
+    #hud-esq-1 {
+      left: 32px;
+      top: 32px;
+      border-left-width: 2px;
+      border-top-width: 2px;
+    }
+    #hud-esq-2 {
+      right: 32px;
+      top: 32px;
+      border-right-width: 2px;
+      border-top-width: 2px;
+    }
+    #hud-esq-3 {
+      left: 32px;
+      bottom: 32px;
+      border-left-width: 2px;
+      border-bottom-width: 2px;
+    }
+    #hud-esq-4 {
+      right: 32px;
+      bottom: 32px;
+      border-right-width: 2px;
+      border-bottom-width: 2px;
+    }
+    .hud-txt {
+      position: absolute;
+      opacity: 0.62;
+      white-space: nowrap;
+    }
+    #hud-marca {
+      left: 74px;
+      top: 42px;
+    }
+    #hud-marca b {
+      font-weight: 700;
+    }
+    #hud-tc {
+      right: 74px;
+      top: 42px;
+    }
+    #hud-tc i {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #fc5c36;
+      margin-right: 10px;
+      vertical-align: 1px;
+    }
+    #hud-seccion {
+      left: 74px;
+      bottom: 42px;
+    }
+    #hud-formato {
+      right: 74px;
+      bottom: 42px;
+    }
+    #hud-linea {
+      position: absolute;
+      left: 380px;
+      right: 380px;
+      bottom: 50px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.18;
+    }
+    #hud-progreso {
+      position: absolute;
+      left: 380px;
+      width: 1160px;
+      bottom: 50px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.7;
+      transform-origin: left center;
+    }
+  </style>
+  <div id="root" data-composition-id="hud" data-width="1920" data-height="1080" data-layout-ignore>
+    <div id="hud-marco">
+      <i class="hud-esq" id="hud-esq-1"></i>
+      <i class="hud-esq" id="hud-esq-2"></i>
+      <i class="hud-esq" id="hud-esq-3"></i>
+      <i class="hud-esq" id="hud-esq-4"></i>
+      <div class="hud-txt" id="hud-marca"><b>RAÍZ</b> &nbsp;/&nbsp; MOTION REEL '26</div>
+      <div class="hud-txt" id="hud-tc"><i></i>TC <span id="hud-tc-num">00:00:00:00</span></div>
+      <div class="hud-txt" id="hud-seccion">01 — CHISPA</div>
+      <div class="hud-txt" id="hud-formato">1920 × 1080 · 30 FPS</div>
+      <div id="hud-linea"></div>
+      <div id="hud-progreso"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const DUR = 21;
+      // timecode real, derivado del tiempo del timeline
+      const tc = document.getElementById("hud-tc-num");
+      const p2 = (n) => String(n).padStart(2, "0");
+      const reloj = { t: 0 };
+      const pinta = () => {
+        const f = Math.floor(reloj.t * 30 + 1e-6);
+        tc.textContent = "00:" + p2(Math.floor(f / 1800)) + ":" + p2(Math.floor(f / 30) % 60) + ":" + p2(f % 30);
+      };
+      pinta();
+      tl.to(reloj, { t: DUR, duration: DUR, ease: "none", onUpdate: pinta }, 0);
+      tl.fromTo("#hud-progreso", { scaleX: 0 }, { scaleX: 1, duration: DUR, ease: "none" }, 0);
+
+      // la etiqueta de sección cambia con cada escena
+      const sec = document.getElementById("hud-seccion");
+      [
+        [2.75, "02 — PROMESA"],
+        [6.3, "03 — PRODUCTO"],
+        [13.5, "04 — PRUEBAS"],
+        [15.6, "05 — MARCA"],
+      ].forEach(([t, txt]) => tl.set(sec, { textContent: txt }, t));
+
+      // sobre la viñeta negra final, el HUD pasa a papel
+      tl.to("#hud-marco", { color: "#F3ECE4", duration: 0.3, ease: "power2.in" }, 20.2);
+      // entrada del marco
+      tl.fromTo("#hud-marco", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.05);
+
+      window.__timelines["hud"] = tl;
+    })();
+  </script>
+</template>

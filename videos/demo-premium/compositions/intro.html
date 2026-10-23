@@ -1,0 +1,210 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background-color: var(--color-paper, #f3ece4);
+      background-image:
+        linear-gradient(rgba(7, 12, 12, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(7, 12, 12, 0.035) 1px, transparent 1px);
+      background-size: 40px 40px;
+      font-family: "JetBrains Mono", monospace;
+    }
+    #intro-stage {
+      position: absolute;
+      left: 960px;
+      top: 500px;
+      width: 0;
+      height: 0;
+    }
+    #intro-sombra {
+      position: absolute;
+      left: -22px;
+      top: 26px;
+      width: 44px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(7, 12, 12, 0.18);
+      filter: blur(3px);
+    }
+    #intro-punto {
+      position: absolute;
+      left: -14px;
+      top: -14px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-accent, #cdd54a);
+    }
+    .intro-anillo {
+      position: absolute;
+      left: -320px;
+      top: -320px;
+      width: 640px;
+      height: 640px;
+      border-radius: 50%;
+      border: 7px solid var(--color-accent, #cdd54a);
+    }
+    #intro-anillo-2 {
+      border-color: rgba(7, 12, 12, 0.18);
+      border-width: 2px;
+    }
+    .intro-hoja {
+      position: absolute;
+      left: -11px;
+      top: -76px;
+      width: 22px;
+      height: 58px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      background: var(--color-ink, #070c0c);
+      transform-origin: 11px 76px;
+    }
+    .intro-chispa {
+      position: absolute;
+      left: -4px;
+      top: -4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-ink, #070c0c);
+    }
+    .intro-chispa.lima {
+      background: var(--color-accent, #cdd54a);
+    }
+    #intro-orbita {
+      position: absolute;
+      left: -230px;
+      top: -70px;
+      overflow: visible;
+    }
+    #intro-texto {
+      position: absolute;
+      left: 0;
+      top: 640px;
+      width: 1920px;
+      text-align: center;
+      font-size: 28px;
+      letter-spacing: 0.06em;
+      color: rgba(7, 12, 12, 0.7);
+    }
+    #intro-texto span {
+      opacity: 0;
+    }
+    #intro-cursor {
+      display: inline-block;
+      width: 12px;
+      height: 24px;
+      vertical-align: -4px;
+      background: var(--color-ink, #070c0c);
+    }
+  </style>
+  <div id="root" data-composition-id="intro" data-width="1920" data-height="1080">
+    <div id="intro-stage" data-layout-allow-overflow data-layout-ignore>
+      <svg id="intro-orbita" width="460" height="140" viewBox="0 0 460 140">
+        <ellipse
+          id="intro-orbita-linea"
+          cx="230"
+          cy="70"
+          rx="220"
+          ry="58"
+          fill="none"
+          stroke="#070C0C"
+          stroke-width="2"
+          transform="rotate(-12 230 70)"
+        />
+      </svg>
+      <div class="intro-anillo" id="intro-anillo-1"></div>
+      <div class="intro-anillo" id="intro-anillo-2"></div>
+      <div class="intro-hoja" id="intro-hoja-0"></div>
+      <div class="intro-hoja" id="intro-hoja-1"></div>
+      <div class="intro-hoja" id="intro-hoja-2"></div>
+      <div class="intro-hoja" id="intro-hoja-3"></div>
+      <div class="intro-hoja" id="intro-hoja-4"></div>
+      <div class="intro-hoja" id="intro-hoja-5"></div>
+      <div class="intro-hoja" id="intro-hoja-6"></div>
+      <div class="intro-hoja" id="intro-hoja-7"></div>
+      <div class="intro-chispa" id="intro-chispa-0"></div>
+      <div class="intro-chispa lima" id="intro-chispa-1"></div>
+      <div class="intro-chispa" id="intro-chispa-2"></div>
+      <div class="intro-chispa" id="intro-chispa-3"></div>
+      <div class="intro-chispa lima" id="intro-chispa-4"></div>
+      <div class="intro-chispa" id="intro-chispa-5"></div>
+      <div class="intro-chispa" id="intro-chispa-6"></div>
+      <div class="intro-chispa lima" id="intro-chispa-7"></div>
+      <div class="intro-chispa" id="intro-chispa-8"></div>
+      <div class="intro-chispa" id="intro-chispa-9"></div>
+      <div id="intro-sombra"></div>
+      <div id="intro-punto"></div>
+    </div>
+    <div id="intro-texto">
+      <span>&gt;</span><span>&nbsp;</span><span>r</span><span>a</span><span>í</span><span>z</span><span>&nbsp;</span><span>—</span><span>&nbsp;</span><span>g</span><span>e</span><span>r</span><span>m</span><span>i</span><span>n</span><span>a</span><span>n</span><span>d</span><span>o</span><span>&nbsp;</span><i id="intro-cursor"></i>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // PRNG con semilla: mismo resultado en cada render
+      let s = 7;
+      const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+
+      // 0.0–0.3 papel vacío; 0.3–0.65 cae el punto; squash al tocar
+      tl.fromTo("#intro-punto", { y: -560 }, { y: 0, duration: 0.35, ease: "power2.in" }, 0.3);
+      tl.fromTo("#intro-sombra", { scaleX: 0.2, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.35, ease: "power2.in" }, 0.3);
+      tl.to("#intro-punto", { scaleX: 1.35, scaleY: 0.7, y: 5, duration: 0.06, ease: "power2.out" }, 0.65);
+      tl.to("#intro-punto", { scaleX: 1, scaleY: 1, y: -46, duration: 0.18, ease: "power2.out" }, 0.71);
+      tl.to("#intro-punto", { y: 0, duration: 0.11, ease: "power2.in" }, 0.89);
+      tl.to("#intro-sombra", { scaleX: 0.6, opacity: 0.5, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1 }, 0.71);
+
+      // 1.0 big bang: anillos que se expanden y se desvanecen
+      gsap.set(".intro-anillo, .intro-chispa", { opacity: 0 });
+      tl.fromTo("#intro-anillo-1", { scale: 0.06, opacity: 1 }, { scale: 1.6, opacity: 0, duration: 0.7, ease: "expo.out", immediateRender: false }, 1.0);
+      tl.fromTo("#intro-anillo-2", { scale: 0.06, opacity: 1 }, { scale: 2.1, opacity: 0, duration: 0.9, ease: "expo.out", immediateRender: false }, 1.06);
+      tl.to("#intro-sombra", { opacity: 0, duration: 0.1 }, 1.08);
+      tl.to("#intro-punto", { scale: 1.25, duration: 0.25, ease: "back.out(2)" }, 1.0);
+
+      // 8 hojas abren como un asterisco
+      for (let i = 0; i < 8; i++) {
+        tl.fromTo(
+          "#intro-hoja-" + i,
+          { rotation: i * 45, scale: 0, opacity: 1 },
+          { scale: 1, duration: 0.42, ease: "back.out(1.7)" },
+          1.02 + i * 0.022,
+        );
+      }
+      // chispas sueltas que salen disparadas
+      for (let i = 0; i < 10; i++) {
+        const a = rnd() * Math.PI * 2;
+        const r = 170 + rnd() * 260;
+        tl.fromTo(
+          "#intro-chispa-" + i,
+          { x: 0, y: 0, scale: 0.4 + rnd(), opacity: 1 },
+          { x: Math.cos(a) * r, y: Math.sin(a) * r, opacity: 0, duration: 0.9 + rnd() * 0.4, ease: "expo.out", immediateRender: false },
+          1.0,
+        );
+      }
+      // la órbita se dibuja
+      tl.fromTo("#intro-orbita-linea", { strokeDasharray: 1100, strokeDashoffset: 1100 }, { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" }, 1.4);
+      tl.fromTo("#intro-orbita", { rotation: -6 }, { rotation: 4, duration: 0.8, ease: "none" }, 1.4);
+
+      // tipeo mono, 14 caracteres por segundo, cursor que parpadea
+      const letras = document.querySelectorAll("#intro-texto span");
+      letras.forEach((el, i) => tl.set(el, { opacity: 1 }, 1.5 + i * 0.035));
+      gsap.set("#intro-cursor", { opacity: 0 });
+      tl.fromTo("#intro-cursor", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "steps(1)", repeat: 5, yoyo: true, immediateRender: false }, 1.5);
+
+      // 2.2 colapso: todo vuelve al centro
+      for (let i = 0; i < 8; i++) {
+        tl.to("#intro-hoja-" + i, { scale: 0, duration: 0.2, ease: "power3.in" }, 2.2);
+      }
+      tl.to("#intro-orbita", { opacity: 0, scale: 0.3, duration: 0.2, ease: "power3.in" }, 2.2);
+      tl.to("#intro-texto", { opacity: 0, filter: "blur(6px)", duration: 0.15 }, 2.2);
+
+      // 2.4 el punto crece y se vuelve el fondo (flood del acento)
+      tl.to("#intro-punto", { scale: 3, duration: 0.15, ease: "expo.out" }, 2.4);
+      tl.to("#intro-punto", { scale: 90, duration: 0.18, ease: "power3.in" }, 2.55);
+
+      window.__timelines["intro"] = tl;
+    })();
+  </script>
+</template>

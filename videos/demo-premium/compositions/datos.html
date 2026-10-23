@@ -1,0 +1,149 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Bricolage Grotesque";
+      src: url("assets/fonts/bricolage.ttf");
+      font-weight: 200 800;
+      font-stretch: 75% 100%;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background-color: var(--color-paper, #f3ece4);
+      background-image:
+        linear-gradient(rgba(7, 12, 12, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(7, 12, 12, 0.035) 1px, transparent 1px);
+      background-size: 40px 40px;
+      font-family: "Bricolage Grotesque", sans-serif;
+      color: var(--color-ink, #070c0c);
+    }
+    .datos-capa {
+      position: absolute;
+      inset: 0;
+    }
+    .datos-panel {
+      position: absolute;
+      left: 58px;
+      top: 74px;
+      right: 58px;
+      bottom: 74px;
+      border-radius: 28px;
+    }
+    .datos-oscuro {
+      background: var(--color-ink, #070c0c);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+    .datos-lima {
+      background: var(--color-accent, #cdd54a);
+    }
+    .datos-fantasma,
+    .datos-num {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      text-align: center;
+      font-weight: 790;
+      letter-spacing: -0.055em;
+      font-variant-numeric: tabular-nums;
+    }
+    .datos-fantasma {
+      top: 170px;
+      font-size: 520px;
+      line-height: 640px;
+      opacity: 0.035;
+      white-space: nowrap;
+    }
+    .datos-num {
+      top: 380px;
+      font-size: 230px;
+      line-height: 240px;
+    }
+    .datos-etq {
+      position: absolute;
+      left: 0;
+      top: 650px;
+      width: 1920px;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      letter-spacing: 0.28em;
+    }
+    .datos-claro {
+      color: #f3ece4;
+    }
+    #datos-num-2 {
+      color: var(--color-accent, #cdd54a);
+    }
+    #datos-estrellas {
+      position: absolute;
+      left: 0;
+      top: 700px;
+      width: 1920px;
+      text-align: center;
+      font-size: 40px;
+      letter-spacing: 0.3em;
+    }
+    #datos-estrellas span {
+      opacity: 0.18;
+    }
+  </style>
+  <div id="root" data-composition-id="datos" data-width="1920" data-height="1080">
+    <div class="datos-capa" id="datos-c1">
+      <div data-layout-ignore class="datos-fantasma">12.000+</div>
+      <div class="datos-num" id="datos-num-1">12.000+</div>
+      <div class="datos-etq">PLANTAS CUIDADAS</div>
+    </div>
+    <div class="datos-capa" id="datos-c2">
+      <div class="datos-panel datos-oscuro"></div>
+      <div data-layout-ignore class="datos-fantasma datos-claro">98%</div>
+      <div class="datos-num" id="datos-num-2">98%</div>
+      <div class="datos-etq datos-claro">SIGUEN VIVAS AL AÑO</div>
+    </div>
+    <div class="datos-capa" id="datos-c3">
+      <div data-layout-ignore class="datos-fantasma">3 min</div>
+      <div class="datos-num" id="datos-num-3">3 min</div>
+      <div class="datos-etq">AL DÍA, EN PROMEDIO</div>
+    </div>
+    <div class="datos-capa" id="datos-c4">
+      <div class="datos-panel datos-lima" id="datos-panel-4"></div>
+      <div data-layout-ignore class="datos-fantasma">4,9/5</div>
+      <div class="datos-num" id="datos-num-4">4,9/5</div>
+      <div class="datos-etq" style="top: 640px">VALORACIÓN DE LA COMUNIDAD</div>
+      <div id="datos-estrellas"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const capas = ["#datos-c1", "#datos-c2", "#datos-c3", "#datos-c4"];
+      // cortes secos cada 0,5 s (un beat a 120 BPM): sin tween, solo set
+      capas.forEach((c, i) => {
+        tl.set(c, { opacity: i === 0 ? 1 : 0 }, 0);
+        if (i > 0) tl.set(c, { opacity: 1 }, i * 0.5);
+        if (i < 3) tl.set(c, { opacity: 0 }, (i + 1) * 0.5);
+      });
+
+      // números que ruedan desde un valor cercano y aterrizan quietos
+      const miles = (n) => Math.round(n).toLocaleString("de-DE");
+      const rueda = (sel, desde, hasta, fmt, t) => {
+        const el = document.querySelector(sel);
+        const o = { v: desde };
+        const pinta = () => (el.textContent = fmt(o.v));
+        pinta();
+        tl.to(o, { v: hasta, duration: 0.42, ease: "expo.out", onUpdate: pinta }, t);
+        tl.fromTo(el, { filter: "blur(10px)", y: -18 }, { filter: "blur(0px)", y: 0, duration: 0.34, ease: "expo.out" }, t);
+      };
+      rueda("#datos-num-1", 9870, 12000, (v) => miles(v) + "+", 0);
+      rueda("#datos-num-2", 71, 98, (v) => Math.round(v) + "%", 0.5);
+      rueda("#datos-num-3", 9, 3, (v) => Math.round(v) + " min", 1.0);
+      rueda("#datos-num-4", 3.2, 4.9, (v) => v.toFixed(1).replace(".", ",") + "/5", 1.5);
+      tl.to("#datos-estrellas span", { opacity: 1, duration: 0.05, stagger: 0.05 }, 1.58);
+
+      // el panel lima se difumina hacia la marca
+      tl.to("#datos-c4", { scale: 0.96, filter: "blur(20px)", opacity: 0, duration: 0.2, ease: "power2.in" }, 1.93);
+
+      window.__timelines["datos"] = tl;
+    })();
+  </script>
+</template>

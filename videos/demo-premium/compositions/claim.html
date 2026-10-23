@@ -1,0 +1,263 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Bricolage Grotesque";
+      src: url("assets/fonts/bricolage.ttf");
+      font-weight: 200 800;
+      font-stretch: 75% 100%;
+    }
+    @font-face {
+      font-family: "Fraunces";
+      src: url("assets/fonts/fraunces-italic.ttf");
+      font-style: italic;
+      font-weight: 100 900;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: var(--color-accent, #cdd54a);
+    }
+    #claim-papel {
+      position: absolute;
+      inset: 0;
+      background-color: var(--color-paper, #f3ece4);
+      background-image:
+        linear-gradient(rgba(7, 12, 12, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(7, 12, 12, 0.035) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    #claim-titulo {
+      position: absolute;
+      left: 0;
+      top: 360px;
+      width: 1920px;
+      text-align: center;
+      color: var(--color-ink, #070c0c);
+    }
+    .claim-l1 {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-weight: 750;
+      font-size: 112px;
+      letter-spacing: -0.045em;
+      line-height: 1.02;
+    }
+    .claim-l2 {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-weight: 380;
+      font-size: 116px;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      color: #3b4a3f;
+    }
+    .claim-mask {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+      padding: 0 0.04em 0.14em;
+      margin-bottom: -0.14em;
+    }
+    .claim-w {
+      display: inline-block;
+    }
+    #claim-hl {
+      position: relative;
+      display: inline-block;
+      isolation: isolate;
+    }
+    #claim-marcador {
+      position: absolute;
+      left: -0.06em;
+      right: -0.06em;
+      top: 0.36em;
+      height: 0.62em;
+      background: var(--color-accent, #cdd54a);
+      transform-origin: left center;
+      z-index: -1;
+    }
+    #claim-pildora {
+      position: absolute;
+      left: 760px;
+      top: 650px;
+      width: 400px;
+      height: 64px;
+      border-radius: 32px;
+      background: var(--color-ink, #070c0c);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        0 12px 32px -8px rgba(7, 12, 12, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      font-family: "JetBrains Mono", monospace;
+      color: #f3ece4;
+    }
+    #claim-pildora .etq {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      opacity: 0.55;
+    }
+    #claim-pildora .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-accent, #cdd54a);
+    }
+    #claim-reloj {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--color-accent, #cdd54a);
+    }
+    .claim-chip {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 20px 12px 12px;
+      border-radius: 18px;
+      background: #fcf4ec;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.7),
+        0 1px 1px rgba(7, 12, 12, 0.08),
+        0 10px 24px -8px rgba(7, 12, 12, 0.28);
+      font-family: "Bricolage Grotesque", sans-serif;
+      color: var(--color-ink, #070c0c);
+    }
+    .claim-chip .ic {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: #e9ecd3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .claim-chip img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+    }
+    .claim-chip b {
+      display: block;
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    .claim-chip small {
+      display: block;
+      margin-top: 2px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: rgba(7, 12, 12, 0.5);
+    }
+  </style>
+  <div id="root" data-composition-id="claim" data-width="1920" data-height="1080">
+    <div id="claim-papel">
+      <div class="claim-chip" id="claim-chip-0" style="left: 250px; top: 170px">
+        <div class="ic"><img src="assets/img/LeafSet025-02.png" alt="" /></div>
+        <div><b>Geranio</b><small>RIEGO · 7 DÍAS</small></div>
+      </div>
+      <div class="claim-chip" id="claim-chip-1" style="left: 1400px; top: 150px">
+        <div class="ic"><img src="assets/img/LeafSet005-02.png" alt="" /></div>
+        <div><b>Avellano</b><small>LUZ · MEDIA</small></div>
+      </div>
+      <div class="claim-chip" id="claim-chip-2" style="left: 150px; top: 780px">
+        <div class="ic"><img src="assets/img/LeafSet010-01.png" alt="" /></div>
+        <div><b>Arce</b><small>HUMEDAD · 62%</small></div>
+      </div>
+      <div class="claim-chip" id="claim-chip-3" style="left: 1450px; top: 800px">
+        <div class="ic"><img src="assets/img/LeafSet020-01.png" alt="" /></div>
+        <div><b>Lechuga</b><small>COSECHA · 12 D</small></div>
+      </div>
+      <div class="claim-chip" id="claim-chip-4" style="left: 560px; top: 900px">
+        <div class="ic"><img src="assets/img/Foliage006-07.png" alt="" /></div>
+        <div><b>Cebollín</b><small>ABONO · HOY</small></div>
+      </div>
+      <div class="claim-chip" id="claim-chip-5" style="left: 1100px; top: 60px">
+        <div class="ic"><img src="assets/img/LeafSet015-01.png" alt="" /></div>
+        <div><b>Haya roja</b><small>PODA · MARZO</small></div>
+      </div>
+
+      <div id="claim-titulo">
+        <div class="claim-l1">
+          <span class="claim-mask"><span class="claim-w">Tus</span></span>
+          <span class="claim-mask"><span class="claim-w">plantas,</span></span>
+        </div>
+        <div class="claim-l2" id="claim-l2">
+          sin <span id="claim-hl"><i id="claim-marcador"></i>adivinar.</span>
+        </div>
+      </div>
+
+      <div id="claim-pildora">
+        <i class="dot"></i><span class="etq">PRÓXIMO RIEGO</span><span id="claim-reloj">71:53:08</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      let s = 11;
+      const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+
+      // 0–0.3 iris de papel desde el centro sobre el flood lima
+      tl.fromTo(
+        "#claim-papel",
+        { clipPath: "circle(0% at 50% 46%)" },
+        { clipPath: "circle(75% at 50% 46%)", duration: 0.3, ease: "expo.out" },
+        0,
+      );
+
+      // titular: palabra por palabra desde la máscara
+      tl.fromTo(".claim-w", { yPercent: 110 }, { yPercent: 0, duration: 0.5, ease: "expo.out", stagger: 0.07 }, 0.32);
+      // segunda cláusula en serif itálica: blur in
+      tl.fromTo("#claim-l2", { opacity: 0, filter: "blur(10px)", y: 10 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.3, ease: "power3.out" }, 0.55);
+      // marcador barre una sola palabra
+      tl.fromTo("#claim-marcador", { scaleX: 0 }, { scaleX: 1, duration: 0.25, ease: "power2.out" }, 1.28);
+
+      // chips con sombra suave, de a uno
+      const orden = [0, 1, 2, 3, 4, 5];
+      orden.forEach((n, i) => {
+        const rot = (rnd() - 0.5) * 7;
+        tl.fromTo(
+          "#claim-chip-" + n,
+          { opacity: 0, scale: 0.86, y: 18, rotation: rot * 0.4, filter: "blur(6px)" },
+          { opacity: 1, scale: 1, y: 0, rotation: rot, filter: "blur(0px)", duration: 0.4, ease: "expo.out" },
+          0.58 + i * 0.14,
+        );
+      });
+
+      // píldora con countdown que corre de verdad
+      tl.fromTo("#claim-pildora", { opacity: 0, y: 16, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "expo.out" }, 0.85);
+      const reloj = document.getElementById("claim-reloj");
+      const pad = (n) => String(Math.floor(n)).padStart(2, "0");
+      const cuenta = { seg: 71 * 3600 + 53 * 60 + 8 };
+      const pinta = () => {
+        const t = cuenta.seg;
+        reloj.textContent = pad(t / 3600) + ":" + pad((t % 3600) / 60) + ":" + pad(t % 60);
+      };
+      pinta();
+      tl.to(cuenta, { seg: 2 * 3600 + 14 * 60 + 36, duration: 2.0, ease: "power2.inOut", onUpdate: pinta }, 0.9);
+
+      // 2.95 salida: chips dispersados radialmente con blur
+      orden.forEach((n, i) => {
+        const el = document.getElementById("claim-chip-" + n);
+        const cx = parseFloat(el.style.left) + 150 - 960;
+        const cy = parseFloat(el.style.top) + 38 - 520;
+        const d = Math.hypot(cx, cy) || 1;
+        tl.to(
+          el,
+          { x: (cx / d) * 380, y: (cy / d) * 380, opacity: 0, filter: "blur(10px)", duration: 0.25, ease: "power3.in" },
+          2.95 + i * 0.02,
+        );
+      });
+      tl.to("#claim-pildora", { y: 40, opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power3.in" }, 3.0);
+
+      window.__timelines["claim"] = tl;
+    })();
+  </script>
+</template>

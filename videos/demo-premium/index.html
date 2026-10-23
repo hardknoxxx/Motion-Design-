@@ -1,0 +1,180 @@
+<!doctype html>
+<html
+  lang="es"
+  data-composition-variables='[
+    {"id":"color-paper","type":"color","label":"Papel","default":"#F3ECE4"},
+    {"id":"color-ink","type":"color","label":"Tinta","default":"#070C0C"},
+    {"id":"color-accent","type":"color","label":"Acento","default":"#CDD54A"},
+    {"id":"color-brand","type":"color","label":"Verde de marca","default":"#1E4D2B"},
+    {"id":"brand","type":"string","label":"Marca","default":"raíz"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #070c0c;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="21"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- Escenas: una idea cada una -->
+      <div
+        id="intro"
+        data-composition-id="intro"
+        data-composition-src="compositions/intro.html"
+        data-start="0"
+        data-duration="2.75"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 1"
+      ></div>
+      <div
+        id="claim"
+        data-composition-id="claim"
+        data-composition-src="compositions/claim.html"
+        data-start="2.75"
+        data-duration="3.65"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 2"
+      ></div>
+      <div
+        id="app"
+        data-composition-id="app"
+        data-composition-src="compositions/app.html"
+        data-start="6.3"
+        data-duration="7.2"
+        data-track-index="2"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 3"
+      ></div>
+      <div
+        id="datos"
+        data-composition-id="datos"
+        data-composition-src="compositions/datos.html"
+        data-start="13.5"
+        data-duration="2.15"
+        data-track-index="1"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 4"
+      ></div>
+      <div
+        id="marca"
+        data-composition-id="marca"
+        data-composition-src="compositions/marca.html"
+        data-start="15.6"
+        data-duration="5.4"
+        data-track-index="2"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 5"
+      ></div>
+
+      <!-- Transición: escalera de píxeles entre la promesa y el producto -->
+      <div
+        id="escalera"
+        data-composition-id="escalera"
+        data-composition-src="compositions/escalera.html"
+        data-start="5.7"
+        data-duration="1.05"
+        data-track-index="3"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 20"
+      ></div>
+
+      <!-- Marco HUD, siempre encima -->
+      <div
+        id="hud"
+        data-composition-id="hud"
+        data-composition-src="compositions/hud.html"
+        data-start="0"
+        data-duration="21"
+        data-track-index="4"
+        data-track-kind="graphics"
+        data-width="1920"
+        data-height="1080"
+        style="z-index: 30"
+      ></div>
+
+      <!-- Sonido: cada efecto tiene su causa en pantalla; el pico cae un frame después de la imagen -->
+      <audio id="sfx-caida" src="assets/sfx/pop-p_1.wav" data-start="0.66" data-duration="0.10" data-volume="0.6" data-track-index="10"></audio>
+      <audio id="sfx-bigbang" src="assets/sfx/whoosh2_0.wav" data-start="0.98" data-duration="1.1" data-fade-out="0.5" data-volume="0.55" data-track-index="11"></audio>
+      <audio id="sfx-tipeo-1" src="assets/sfx/tick_001.wav" data-start="1.56" data-duration="0.05" data-volume="0.35" data-track-index="12"></audio>
+      <audio id="sfx-tipeo-2" src="assets/sfx/tick_002.wav" data-start="1.74" data-duration="0.03" data-volume="0.35" data-track-index="13"></audio>
+      <audio id="sfx-tipeo-3" src="assets/sfx/tick_004.wav" data-start="1.92" data-duration="0.06" data-volume="0.35" data-track-index="14"></audio>
+      <audio id="sfx-flood" src="assets/sfx/swish-6.wav" data-start="2.56" data-duration="0.14" data-volume="0.9" data-track-index="15"></audio>
+      <audio id="sfx-titulo" src="assets/sfx/pop-pop1.wav" data-start="3.22" data-duration="0.40" data-volume="0.45" data-track-index="16"></audio>
+      <audio id="sfx-chip-1" src="assets/sfx/pop-p_2.wav" data-start="3.34" data-duration="0.07" data-volume="0.35" data-track-index="17"></audio>
+      <audio id="sfx-chip-2" src="assets/sfx/pop-p_3.wav" data-start="3.62" data-duration="0.05" data-volume="0.35" data-track-index="18"></audio>
+      <audio id="sfx-chip-3" src="assets/sfx/pop-p_4.wav" data-start="3.9" data-duration="0.06" data-volume="0.35" data-track-index="19"></audio>
+      <audio id="sfx-marcador" src="assets/sfx/scratch_001.wav" data-start="4.04" data-duration="0.14" data-volume="0.5" data-track-index="20"></audio>
+      <audio id="sfx-hojas" src="assets/sfx/hojas-secas-crujido-04.wav" data-start="5.72" data-duration="1.0" data-fade-out="0.4" data-volume="0.7" data-track-index="21"></audio>
+      <audio id="sfx-escalera" src="assets/sfx/swish-9.wav" data-start="5.8" data-duration="0.20" data-volume="0.9" data-track-index="22"></audio>
+      <audio id="sfx-escalera-sale" src="assets/sfx/swish-3.wav" data-start="6.36" data-duration="0.15" data-volume="0.7" data-track-index="23"></audio>
+      <audio id="sfx-buscador" src="assets/sfx/drop_001.wav" data-start="6.44" data-duration="0.14" data-volume="0.5" data-track-index="24"></audio>
+      <audio id="sfx-tecla-1" src="assets/sfx/tick_001.wav" data-start="8.27" data-duration="0.05" data-volume="0.4" data-track-index="25"></audio>
+      <audio id="sfx-tecla-2" src="assets/sfx/tick_004.wav" data-start="8.44" data-duration="0.06" data-volume="0.4" data-track-index="26"></audio>
+      <audio id="sfx-tecla-3" src="assets/sfx/tick_002.wav" data-start="8.61" data-duration="0.03" data-volume="0.4" data-track-index="27"></audio>
+      <audio id="sfx-tecla-4" src="assets/sfx/tick_001.wav" data-start="8.78" data-duration="0.05" data-volume="0.4" data-track-index="28"></audio>
+      <audio id="sfx-morph" src="assets/sfx/swish-1.wav" data-start="9.11" data-duration="0.13" data-volume="0.7" data-track-index="29"></audio>
+      <audio id="sfx-tarjeta" src="assets/sfx/pop-pop2.wav" data-start="9.93" data-duration="0.30" data-volume="0.4" data-track-index="30"></audio>
+      <audio id="sfx-toque" src="assets/sfx/click_002.wav" data-start="10.62" data-duration="0.02" data-volume="0.9" data-track-index="31"></audio>
+      <audio id="sfx-crece" src="assets/sfx/swish-4.wav" data-start="10.82" data-duration="0.15" data-volume="0.6" data-track-index="32"></audio>
+      <audio id="sfx-whip" src="assets/sfx/swish-12.wav" data-start="11.37" data-duration="0.08" data-volume="0.9" data-track-index="33"></audio>
+      <audio id="sfx-flood-app" src="assets/sfx/swish-7.wav" data-start="11.59" data-duration="0.19" data-volume="0.7" data-track-index="34"></audio>
+      <audio id="sfx-ruta" src="assets/sfx/scroll_001.wav" data-start="12.01" data-duration="0.5" data-fade-out="0.2" data-volume="0.15" data-track-index="35"></audio>
+      <audio id="sfx-aviso" src="assets/sfx/bell_ding2.wav" data-start="12.62" data-duration="1.44" data-volume="0.3" data-track-index="36"></audio>
+      <audio id="sfx-mundo" src="assets/sfx/swish-6.wav" data-start="13.07" data-duration="0.14" data-volume="0.8" data-track-index="37"></audio>
+      <audio id="sfx-dato-1" src="assets/sfx/impactSoft_medium_000.wav" data-start="13.52" data-duration="0.12" data-volume="0.7" data-track-index="38"></audio>
+      <audio id="sfx-dato-2" src="assets/sfx/impactSoft_medium_001.wav" data-start="14.02" data-duration="0.19" data-volume="0.7" data-track-index="39"></audio>
+      <audio id="sfx-dato-3" src="assets/sfx/impactSoft_medium_002.wav" data-start="14.52" data-duration="0.14" data-volume="0.7" data-track-index="40"></audio>
+      <audio id="sfx-dato-4" src="assets/sfx/impactSoft_medium_000.wav" data-start="15.02" data-duration="0.12" data-volume="0.7" data-track-index="41"></audio>
+      <audio id="sfx-reensamble" src="assets/sfx/swish-3.wav" data-start="15.62" data-duration="0.15" data-volume="0.6" data-track-index="42"></audio>
+      <audio id="sfx-logo" src="assets/sfx/impactSoft_heavy_000.wav" data-start="16.22" data-duration="0.53" data-volume="1" data-track-index="43"></audio>
+      <audio id="sfx-logo-pop" src="assets/sfx/pop-pop1.wav" data-start="16.24" data-duration="0.40" data-volume="0.5" data-track-index="44"></audio>
+      <audio id="sfx-wordmark" src="assets/sfx/select_001.wav" data-start="16.98" data-duration="0.05" data-volume="0.4" data-track-index="45"></audio>
+      <audio id="sfx-cta" src="assets/sfx/pop-p_2.wav" data-start="17.68" data-duration="0.07" data-volume="0.4" data-track-index="46"></audio>
+      <audio id="sfx-cierre" src="assets/sfx/swish-1.wav" data-start="20.22" data-duration="0.13" data-volume="0.6" data-track-index="47"></audio>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

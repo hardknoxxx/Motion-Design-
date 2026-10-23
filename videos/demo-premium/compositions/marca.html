@@ -1,0 +1,259 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Bricolage Grotesque";
+      src: url("assets/fonts/bricolage.ttf");
+      font-weight: 200 800;
+      font-stretch: 75% 100%;
+    }
+    @font-face {
+      font-family: "Fraunces";
+      src: url("assets/fonts/fraunces-italic.ttf");
+      font-style: italic;
+      font-weight: 100 900;
+    }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background-color: var(--color-paper, #f3ece4);
+      background-image:
+        linear-gradient(rgba(7, 12, 12, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(7, 12, 12, 0.035) 1px, transparent 1px);
+      background-size: 40px 40px;
+      font-family: "Bricolage Grotesque", sans-serif;
+      color: var(--color-ink, #070c0c);
+    }
+    #marca-centro {
+      position: absolute;
+      left: 960px;
+      top: 470px;
+      width: 0;
+      height: 0;
+    }
+    .marca-p {
+      position: absolute;
+      left: -9px;
+      top: -9px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--color-ink, #070c0c);
+    }
+    #marca-anillo {
+      position: absolute;
+      left: -200px;
+      top: -200px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      border: 4px solid var(--color-accent, #cdd54a);
+    }
+    #marca-logo {
+      position: absolute;
+      left: -110px;
+      top: -110px;
+      overflow: visible;
+    }
+    .marca-destello {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      left: -13px;
+      top: -13px;
+      background: var(--color-ink, #070c0c);
+      clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+    }
+    #marca-destello-1 {
+      background: var(--color-accent, #cdd54a);
+    }
+    #marca-palabra {
+      position: absolute;
+      left: 0;
+      top: 470px;
+      width: 1920px;
+      text-align: center;
+      font-size: 190px;
+      font-weight: 790;
+      letter-spacing: -0.06em;
+      line-height: 1;
+    }
+    #marca-palabra span {
+      display: inline-block;
+    }
+    #marca-lema {
+      position: absolute;
+      left: 0;
+      top: 690px;
+      width: 1920px;
+      text-align: center;
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-weight: 360;
+      font-size: 54px;
+      letter-spacing: -0.02em;
+      color: #3b4a3f;
+    }
+    #marca-cta {
+      position: absolute;
+      left: 0;
+      top: 800px;
+      width: 1920px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 26px;
+    }
+    #marca-boton {
+      height: 66px;
+      padding: 0 34px;
+      border-radius: 33px;
+      background: var(--color-ink, #070c0c);
+      color: #f3ece4;
+      font-size: 28px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        0 14px 30px -10px rgba(7, 12, 12, 0.45);
+    }
+    #marca-boton i {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-accent, #cdd54a);
+    }
+    #marca-usuario {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 26px;
+      letter-spacing: 0.08em;
+      color: rgba(7, 12, 12, 0.72);
+    }
+    #marca-vineta {
+      position: absolute;
+      inset: 0;
+      --r: 140;
+      background: radial-gradient(ellipse 62% 78% at 50% 50%, transparent calc(var(--r) * 1%), #070c0c calc(var(--r) * 1% + 14%));
+    }
+    #marca-final {
+      position: absolute;
+      left: 900px;
+      top: 480px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 2px solid rgba(243, 236, 228, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #marca-final i {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--color-accent, #cdd54a);
+    }
+  </style>
+  <div id="root" data-composition-id="marca" data-width="1920" data-height="1080">
+    <div id="marca-centro" data-layout-allow-overflow data-layout-ignore>
+      <div id="marca-anillo"></div>
+      <div class="marca-p" id="marca-p-0"></div>
+      <div class="marca-p" id="marca-p-1"></div>
+      <div class="marca-p" id="marca-p-2"></div>
+      <div class="marca-p" id="marca-p-3"></div>
+      <div class="marca-p" id="marca-p-4"></div>
+      <div class="marca-p" id="marca-p-5"></div>
+      <div class="marca-p" id="marca-p-6"></div>
+      <div class="marca-p" id="marca-p-7"></div>
+      <svg id="marca-logo" width="220" height="220" viewBox="-110 -110 220 220">
+        <g fill="#070C0C">
+          <path d="M0 -12 C 22 -40 22 -78 0 -100 C -22 -78 -22 -40 0 -12 Z" transform="rotate(0)" />
+          <path d="M0 -12 C 22 -40 22 -78 0 -100 C -22 -78 -22 -40 0 -12 Z" transform="rotate(60)" />
+          <path d="M0 -12 C 22 -40 22 -78 0 -100 C -22 -78 -22 -40 0 -12 Z" transform="rotate(120)" />
+          <path d="M0 -12 C 22 -40 22 -78 0 -100 C -22 -78 -22 -40 0 -12 Z" transform="rotate(180)" />
+          <path d="M0 -12 C 22 -40 22 -78 0 -100 C -22 -78 -22 -40 0 -12 Z" transform="rotate(240)" />
+          <path d="M0 -12 C 22 -40 22 -78 0 -100 C -22 -78 -22 -40 0 -12 Z" transform="rotate(300)" />
+        </g>
+        <circle r="17" fill="#CDD54A" stroke="#070C0C" stroke-width="5" />
+      </svg>
+      <div class="marca-destello" id="marca-destello-0"></div>
+      <div class="marca-destello" id="marca-destello-1"></div>
+      <div class="marca-destello" id="marca-destello-2"></div>
+    </div>
+    <div id="marca-palabra"><span>r</span><span>a</span><span>í</span><span>z</span></div>
+    <div id="marca-lema">Cuida lo que crece.</div>
+    <div id="marca-cta">
+      <div id="marca-boton"><i></i>Descárgala gratis →</div>
+      <div id="marca-usuario">@raiz.app</div>
+    </div>
+    <div id="marca-vineta" data-layout-ignore data-layout-allow-occlusion></div>
+    <div id="marca-final" data-layout-ignore data-layout-allow-occlusion><i></i></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      let s = 23;
+      const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+
+      gsap.set("#marca-palabra span, #marca-lema, #marca-cta, #marca-anillo, #marca-final, #marca-vineta", { opacity: 0 });
+      
+      // 0–0.42 partículas con estela que convergen en un anillo de 8
+      for (let i = 0; i < 8; i++) {
+        const a = rnd() * Math.PI * 2;
+        const r = 560 + rnd() * 380;
+        const fx = Math.cos(a) * r;
+        const fy = Math.sin(a) * r;
+        const ta = (i / 8) * Math.PI * 2;
+        const tx = Math.cos(ta) * 120;
+        const ty = Math.sin(ta) * 120;
+        const ang = (Math.atan2(ty - fy, tx - fx) * 180) / Math.PI;
+        tl.fromTo(
+          "#marca-p-" + i,
+          { x: fx, y: fy, rotation: ang, scaleX: 4, filter: "blur(4px)" },
+          { x: tx, y: ty, scaleX: 1, filter: "blur(0px)", duration: 0.42, ease: "expo.out" },
+          i * 0.015,
+        );
+        // colapso al centro
+        tl.to("#marca-p-" + i, { x: 0, y: 0, scale: 0.4, duration: 0.15, ease: "power3.in" }, 0.47);
+        tl.set("#marca-p-" + i, { opacity: 0 }, 0.62);
+      }
+
+      // 0.6 aparece el logo con el anillo de acento que pulsa
+      tl.fromTo("#marca-logo", { scale: 0, rotation: -50 }, { scale: 1, rotation: 0, duration: 0.42, ease: "back.out(1.8)" }, 0.6);
+      tl.fromTo("#marca-anillo", { scale: 0.25, opacity: 1 }, { scale: 1.35, opacity: 0, duration: 0.7, ease: "expo.out" }, 0.6);
+      [
+        [150, -110, 1.1],
+        [-160, -60, 0.8],
+        [130, 95, 0.6],
+      ].forEach(([x, y, k], i) => {
+        tl.fromTo(
+          "#marca-destello-" + i,
+          { x: x * 0.6, y: y * 0.6, scale: 0, rotation: -45 },
+          { x, y, scale: k, rotation: 0, duration: 0.35, ease: "back.out(2.2)" },
+          0.72 + i * 0.06,
+        );
+        tl.to("#marca-destello-" + i, { scale: 0, duration: 0.2, ease: "power2.in" }, 1.25 + i * 0.03);
+      });
+
+      // 1.25 el logo sube y el wordmark entra letra a letra
+      tl.to("#marca-centro", { y: -200, scale: 0.62, duration: 0.42, ease: "power3.inOut" }, 1.25);
+      tl.fromTo(
+        "#marca-palabra span",
+        { opacity: 0, y: 24, filter: "blur(10px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "expo.out", stagger: 0.08 },
+        1.38,
+      );
+      tl.fromTo("#marca-lema", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, 1.8);
+      tl.fromTo("#marca-cta", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 2.08);
+
+      // hold quieto ~2,4 s; 4.55 viñeta que se cierra a negro
+      tl.set("#marca-vineta", { opacity: 1 }, 4.55);
+      tl.to("#marca-vineta", { "--r": -16, duration: 0.45, ease: "power2.in" }, 4.55);
+      tl.fromTo("#marca-final", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.25, ease: "expo.out" }, 4.95);
+
+      window.__timelines["marca"] = tl;
+    })();
+  </script>
+</template>
